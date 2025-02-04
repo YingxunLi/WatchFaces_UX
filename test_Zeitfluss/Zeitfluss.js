@@ -119,7 +119,7 @@ function draw() {
   bubbles.forEach((bubble, index) => {
     Body.applyForce(bubble, bubble.position, { x: dx * 0.0001, y: dy * 0.0001 }); // 施加微小力以模拟移动
 
-    fill(0, 255, 255, 150); // 设置气泡填充颜色和透明度
+    fill(0, 255, 255); // 设置气泡填充颜色和透明度
     noStroke(); // 无边框
     circle(bubble.position.x, bubble.position.y, enlargedRadii[index]); // 绘制半径可以变化的圆
   });
