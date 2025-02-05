@@ -27,7 +27,7 @@ function setup() {
   // reset gravity to zero for start, gravity will be controlled by motion
   engine.gravity.y = 0;
 
-  
+
     // Erstelle den weißen Kreis
     for (let i = 0; i < 1; i++) {
         let circle = Bodies.circle(random(100, width - 100), 100, baseCircleRadius, { // Basisgröße des Kreises
@@ -114,7 +114,7 @@ function draw() {
 
     // Füge Umrandung für die Hauptkreise hinzu
     stroke(0);
-    strokeWeight(0);
+    strokeWeight(2);
     fill(255);
     circles.forEach(circle => {
         ellipse(circle.position.x, circle.position.y, circle.circleRadius * 2, circle.circleRadius * 2); // Zeichne den Kreis mit der aktuellen Größe
