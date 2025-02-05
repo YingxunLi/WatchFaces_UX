@@ -1,21 +1,17 @@
 # Watchfaces
 
-这里是一些有趣的 Watchfaces 示例，点击图片查看详细内容。
-
-## 图片展示
-
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
   <div style="text-align: center; margin: 10px;">
-    <a href="链接1">
-      <img src="https://user-images.githubusercontent.com/480224/44387710-8bf17e80-a526-11e8-972d-43b6e305765e.gif" alt="x gif" width="200">
+    <a href="https://yingxunli.github.io/LOTTA/clockwork/clockworkLotta3.html">
+      <img src="images/1.png" alt="Watchface 1" width="200">
     </a>
     <p>Watchface 1</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="链接2">
-      <img src="图片链接2" alt="x gif" width="200">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/test_Scratch_Card/index.html">
+      <img src="images/4.png" alt="Watchface 2" width="200">
     </a>
     <p>Watchface 2</p>
   </div>
