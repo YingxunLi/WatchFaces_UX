@@ -27,9 +27,7 @@ function setup() {
   // reset gravity to zero for start, gravity will be controlled by motion
   engine.gravity.y = 0;
 
-
-
-
+  
     // Erstelle den weißen Kreis
     for (let i = 0; i < 1; i++) {
         let circle = Bodies.circle(random(100, width - 100), 100, baseCircleRadius, { // Basisgröße des Kreises
@@ -52,10 +50,11 @@ function setup() {
 function draw() {
     background(0);
 
+
   // apply rotation of device to gravity
   engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
   engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-
+  
 
 
     // Berechne die Richtung der Gravitationskraft basierend auf der Mausposition
