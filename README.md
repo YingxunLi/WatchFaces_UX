@@ -1,15 +1,43 @@
-![x gif](https://user-images.githubusercontent.com/480224/44387710-8bf17e80-a526-11e8-972d-43b6e305765e.gif)
+# Watchfaces
 
-p5.js × matter.js
-==================
+这里是一些有趣的 Watchfaces 示例，点击图片查看详细内容。
 
-Examples and documentation on how to combine [p5.js](https://p5js.org/) and [matter.js](http://brm.io/matter-js/)
+## 图片展示
 
-### 👉 [Class reference & examples](https://b-g.github.io/p5-matter-examples/docs)
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
-## About
-The examples have been derived from the course Programmiertes Entwerfen (Sketching with Code) @ the [HfG Schwäbisch Gmünd](https://www.hfg-gmuend.de/) by [Benedikt Groß](https://benedikt-gross.de/), Benno Stäbler and [Stephan Bogner](https://stephanbogner.de/).
+  <div style="text-align: center; margin: 10px;">
+    <a href="链接1">
+      <img src="https://user-images.githubusercontent.com/480224/44387710-8bf17e80-a526-11e8-972d-43b6e305765e.gif" alt="x gif" width="200">
+    </a>
+    <p>Watchface 1</p>
+  </div>
 
-Some of the examples are based on the [matter.js demos](http://brm.io/matter-js/demo) by [liabru](http://brm.io) and [p5-matter](https://github.com/shiffman/p5-matter) by [Daniel Shiffman](https://shiffman.net/).
+  <div style="text-align: center; margin: 10px;">
+    <a href="链接2">
+      <img src="图片链接2" alt="x gif" width="200">
+    </a>
+    <p>Watchface 2</p>
+  </div>
 
-👀 It is also highly recommended to watch the [Introduction to Matter.js](https://www.youtube.com/watch?v=urR596FsU68&index=21&t=0s&list=PLRqwX-V7Uu6akvoNKE4GAxf6ZeBYoJ4uh) videos by [Coding Train](https://thecodingtrain.com/) to complement the examples here.
+  <div style="text-align: center; margin: 10px;">
+    <a href="链接3">
+      <img src="图片链接3" alt="x gif" width="200">
+    </a>
+    <p>Watchface 3</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="链接4">
+      <img src="图片链接4" alt="x gif" width="200">
+    </a>
+    <p>Watchface 4</p>
+  </div>
+
+</div>
+
+## 关于
+
+这些示例源自于课程 *Programmiertes Entwerfen (Sketching with Code)*，由 [HfG Schwäbisch Gmünd](https://www.hfg-gmuend.de/) 的 [Benedikt Groß](https://benedikt-gross.de/)、Benno Stäbler 和 [Stephan Bogner](https://stephanbogner.de/) 教授。
+
+一些示例基于 [matter.js demos](http://brm.io/matter-js/demo) 和 [p5-matter](https://github.com/shiffman/p5-matter)。
