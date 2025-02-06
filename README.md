@@ -30,6 +30,13 @@
     <p>Bubbles</p>
   </div>
 
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/watchface_4/index.html">
+      <img src="images/testtest.png" alt="Watchface 1" style="width: 200px; height: 200px;">
+    </a>
+    <p>Bubbles</p>
+  </div>
+
 </div>
 
 
