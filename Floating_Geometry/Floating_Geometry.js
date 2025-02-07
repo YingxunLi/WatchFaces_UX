@@ -4,23 +4,29 @@ let Bodies = Matter.Bodies;
 let Runner = Matter.Runner;
 let Constraint = Matter.Constraint;
 let Body = Matter.Body;
+
 let engine;
 let runner;
 let world;
+
 let radius = 350; // Radius of the outer circle
 let secondBalls = [];
 let balls = [];
 let centralMagnet;
 let secondBallsAttracted = false; // State for second balls attraction
+
 // METABALLS
 let metaballs;
+
 function setup() {
     let canvas = createCanvas(960, 960);
     centerCanvas(canvas);
+
     engine = Engine.create();
     runner = Runner.create({ isFixed: true, delta: 1000 / 60 });
     world = engine.world;
     engine.gravity.y = 0;
+
     new BlocksFromSVG(world, 'clock.svg', [],
         { isStatic: true, restitution: 0.0, friction: 0.0, frictionAir: 0.0 },
         {
@@ -28,16 +34,20 @@ function setup() {
             console.log('FRAME', added, time, fromCache)
           }
         });
+
     let count = 60; // 60 outer magnets
     secondBalls = [];
+
     // Create the outer balls
     for (let i = 0; i < count; i++) {
         let angle = map(i, 0, count, -PI / 2, 3 * PI / 2);
         let x = width / 2 + radius * cos(angle);
         let y = height / 2 + radius * sin(angle);
+
         let magnet = { x, y, initialX: x, initialY: y, index: i };
         secondBalls.push(magnet);
     }
+
     // Create the central magnet, attraction definiert die Anziehungskraft
     centralMagnet = new Magnet(
         world,
@@ -49,6 +59,7 @@ function setup() {
         { isStatic: true }
     );
     centralMagnet.isActive = false;
+
     // Create the balls and magnets for hours, minutes, and seconds
     let sizes = [120, 80, 60]; // Sizes for hours, minutes, seconds
     const time = [
@@ -59,7 +70,9 @@ function setup() {
     for (let i = 0; i < 3; i++) {
         let x = width / 2;
         let y = height / 2;
+
         let attractionStrength = 0.03e-3; // Reduce attraction for smoother movement
+
         let ball = {
             x,
             y,
@@ -90,19 +103,20 @@ function setup() {
         ball.magnet.addAttracted(ball.body);
         centralMagnet.addAttracted(ball.body);
     }
+
     // METABALLS
     metaballs = new Metaballs(0.08, 0.01, 1000, 20, 0.10);
+
     Runner.run(runner, engine);
 }
+
 function draw() {
     background(0);
-
-      // apply rotation of device to gravity
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-
-
     noStroke();
+
+
+
+    
     // Central magnet attract logic but no visual rendering
     centralMagnet.attract();
     if (centralMagnet.isActive) {
@@ -111,30 +125,36 @@ function draw() {
             y: mouseY
         });
     }
+
     const time = [
         ((hour() % 12) / 12 + minute() / 720) * 2 * Math.PI - Math.PI / 2, // Hours interpolation
         (minute() / 60) * 2 * Math.PI - Math.PI / 2,
         (second() / 60) * 2 * Math.PI - Math.PI / 2
     ];
+
     balls.forEach((ball, i) => {
         Body.setPosition(ball.magnet.body, {
             x: width / 2 + (radius - 0) * Math.cos(time[i]),
             y: height / 2 + (radius - 0) * Math.sin(time[i])
         });
         ball.magnet.attract();
+
         // Change fill color for hour, minute, and second balls
         fill(0, 255, 255);
         ellipse(ball.body.position.x, ball.body.position.y, ball.size);
     });
+
     // METABALLS rendering
     fill(0, 255, 255);
     metaballs.draw(balls.map(ball => ({ ...ball.body.position, radius: ball.size })), 180, 100);
+
     // Draw outer balls and make them move toward or away from the central magnet
     secondBalls.forEach((ball, s) => {
         let targetX = secondBallsAttracted ? width / 2 : ball.initialX;
         let targetY = secondBallsAttracted ? height / 2 : ball.initialY;
         ball.x = lerp(ball.x, targetX, 0.05);
         ball.y = lerp(ball.y, targetY, 0.05);
+
         if (s == second()) {
             fill(255);
         } else {
@@ -144,6 +164,7 @@ function draw() {
         ellipse(ball.x, ball.y, 10);
     });
 }
+
 function mousePressed() {
     // Umschalten Central / nicht Central angezogen
     centralMagnet.isActive = !centralMagnet.isActive;
@@ -153,6 +174,7 @@ function mousePressed() {
     // Toggle attraction state for secondBalls
     secondBallsAttracted = !secondBallsAttracted;
 }
+
 // Center the canvas
 function centerCanvas(canvas) {
     canvas.style('position', 'absolute');
