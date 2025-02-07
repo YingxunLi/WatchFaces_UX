@@ -43,10 +43,10 @@
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/7.Bubbele_Trouble/index.html">
-      <img src="images/7.gif" alt="Bubbele Trouble" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/7.Bubble_Trouble/index.html">
+      <img src="images/7.gif" alt="Bubble Trouble" style="width: 200px; height: 200px;">
     </a>
-    <p>Bubbele Trouble</p>
+    <p>Bubble Trouble</p>
   </div>
 
 </div>
