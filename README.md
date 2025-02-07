@@ -30,16 +30,23 @@
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/5.New_Time/index.html">
-      <img src="5.gif" alt="New Time" style="width: 200px; height: 200px;">
+      <img src="images/5.gif" alt="New Time" style="width: 200px; height: 200px;">
     </a>
     <p>New Time</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/6.Ball_Fall/index.html">
-      <img src="6.gif" alt="Ball Fall" style="width: 200px; height: 200px;">
+      <img src="images/6.gif" alt="Ball Fall" style="width: 200px; height: 200px;">
     </a>
     <p>Ball Fall</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/7.Bubbele_Trouble/index.html">
+      <img src="images/7.gif" alt="Bubbele Trouble" style="width: 200px; height: 200px;">
+    </a>
+    <p>Bubbele Trouble</p>
   </div>
 
 </div>
