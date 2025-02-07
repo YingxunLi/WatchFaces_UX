@@ -58,7 +58,7 @@
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/9.watchface_2/index.html">
-      <img src="images/1.png" alt="watchface_2" style="width: 200px; height: 200px;">
+      <img src="images/9.png" alt="watchface_2" style="width: 200px; height: 200px;">
     </a>
     <p>watchface_2</p>
   </div>
