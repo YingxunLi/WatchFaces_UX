@@ -3,7 +3,7 @@
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/LOTTA/clockwork/clockworkLotta3.html">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/Floating_Geometry/Floating_Geometry.html">
       <img src="images/1.png" alt="Floating Geometry" style="width: 200px; height: 200px;">
     </a>
     <p>Floating Geometry</p>
