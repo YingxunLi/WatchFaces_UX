@@ -29,10 +29,9 @@ function setup() {
 
     new BlocksFromSVG(world, 'clock.svg', [],
         { isStatic: true, restitution: 0.0, friction: 0.0, frictionAir: 0.0 },
-        {
-          save: false, sample: 40, offset: { x: -100, y: -100 }, done: (added, time, fromCache) => {
+        {save: false, sample: 40, offset: { x: -100, y: -100 }, done: (added, time, fromCache) => {
             console.log('FRAME', added, time, fromCache)
-          }
+        }
         });
 
     let count = 60; // 60 outer magnets
