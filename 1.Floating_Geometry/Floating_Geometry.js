@@ -114,9 +114,9 @@ function draw() {
     noStroke();
 
 
-    // apply rotation of device to gravity
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+    // // apply rotation of device to gravity
+    // engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+    // engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
 
     
     // Central magnet attract logic but no visual rendering
