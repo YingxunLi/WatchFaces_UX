@@ -106,66 +106,37 @@ function draw() {
 }
 
 // Passe die Anzahl der weißen Partikel an die Sekunden an
-// function adjustWhiteParticles(seconds) {
-//     while (whiteParticles.length < seconds) {
-//         if (magnetsActive) {
-//             // Weiße Partikel an den Magnetpunkten des Doppelpunkts erzeugen
-//             let randomColonPoint = random(colonPoints);
-//             let body = Bodies.circle(randomColonPoint.x, randomColonPoint.y, 6, {
-//                 restitution: 0.8,
-//                 friction: 0.1,
-//                 frictionAir: 0.01
-//             });
-//             whiteParticles.push(body);
-//             World.add(engine.world, body);
-//         } else {
-//             // Weiße Partikel zufällig erzeugen
-//             let randomX = random(width);
-//             let randomY = random(height);
-//             let body = Bodies.circle(randomX, randomY, 6, {
-//                 restitution: 0.8,
-//                 friction: 0.1,
-//                 frictionAir: 0.01
-//             });
-//             whiteParticles.push(body);
-//             World.add(engine.world, body);
-//         }
-//     }
-
-//     while (whiteParticles.length > seconds) {
-//         let body = whiteParticles.pop();
-//         World.remove(engine.world, body);
-//     }
-// }
 function adjustWhiteParticles(seconds) {
-  while (whiteParticles.length < seconds) {
-      if (magnetsActive) {
-          // 只有在colonPoints数组不为空时才随机选择点
-          if (colonPoints.length > 0) {
-              let randomColonPoint = random(colonPoints);
-              let body = Bodies.circle(randomColonPoint.x, randomColonPoint.y, 6, {
-                  restitution: 0.8,
-                  friction: 0.1,
-                  frictionAir: 0.01
-              });
-              whiteParticles.push(body);
-              World.add(engine.world, body);
-          }
-      } else {
-          // 随机生成白色粒子
-          let randomX = random(width);
-          let randomY = random(height);
-          let body = Bodies.circle(randomX, randomY, 6, {
-              restitution: 0.8,
-              friction: 0.1,
-              frictionAir: 0.01
-          });
-          whiteParticles.push(body);
-          World.add(engine.world, body);
-      }
-  }
-}
+    while (whiteParticles.length < seconds) {
+        if (magnetsActive) {
+            // Weiße Partikel an den Magnetpunkten des Doppelpunkts erzeugen
+            let randomColonPoint = random(colonPoints);
+            let body = Bodies.circle(randomColonPoint.x, randomColonPoint.y, 6, {
+                restitution: 0.8,
+                friction: 0.1,
+                frictionAir: 0.01
+            });
+            whiteParticles.push(body);
+            World.add(engine.world, body);
+        } else {
+            // Weiße Partikel zufällig erzeugen
+            let randomX = random(width);
+            let randomY = random(height);
+            let body = Bodies.circle(randomX, randomY, 6, {
+                restitution: 0.8,
+                friction: 0.1,
+                frictionAir: 0.01
+            });
+            whiteParticles.push(body);
+            World.add(engine.world, body);
+        }
+    }
 
+    while (whiteParticles.length > seconds) {
+        let body = whiteParticles.pop();
+        World.remove(engine.world, body);
+    }
+}
 
 function mousePressed() {
     magnetsActive = !magnetsActive;
