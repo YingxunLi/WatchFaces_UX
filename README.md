@@ -1,5 +1,3 @@
-# Watchfaces
-
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
   <div style="text-align: center; margin: 10px;">
@@ -25,16 +23,23 @@
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/4.Bubbles/bubbles.html">
-      <img src="images/2.png" alt="Watchface 1" style="width: 200px; height: 200px;">
+      <img src="images/2.png" alt="Bubbles" style="width: 200px; height: 200px;">
     </a>
     <p>Bubbles</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/watchface_4/index.html">
-      <img src="images/testtest.png" alt="Watchface 1" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/5.New_Time/index.html">
+      <img src="5.gif" alt="New Time" style="width: 200px; height: 200px;">
     </a>
-    <p>Bubbles</p>
+    <p>New Time</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/6.Ball_Fall/index.html">
+      <img src="6.gif" alt="Ball Fall" style="width: 200px; height: 200px;">
+    </a>
+    <p>Ball Fall</p>
   </div>
 
 </div>
