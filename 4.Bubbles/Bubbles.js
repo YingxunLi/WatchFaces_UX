@@ -18,8 +18,8 @@ function setup() {
     world.gravity.y = 0;
 
 
-    textFont('sans-serif');
-    textSize(600);
+//     textFont('sans-serif');
+//     textSize(600);
     textAlign(CENTER, CENTER);
 
     // Boundary-Objekte mit größerer Breite/Höhe, aber außerhalb des sichtbaren Canvas positioniert
