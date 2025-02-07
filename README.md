@@ -17,14 +17,14 @@
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/3.%20Zeitfluss/index.html">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/3.Zeitfluss/index.html">
       <img src="images/3.png" alt="Zeitfluss" style="width: 200px; height: 200px;">
     </a>
     <p>Zeitfluss</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/test_Bubbles/index.html">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/4.Bubbles/bubbles.html">
       <img src="images/2.png" alt="Watchface 1" style="width: 200px; height: 200px;">
     </a>
     <p>Bubbles</p>
