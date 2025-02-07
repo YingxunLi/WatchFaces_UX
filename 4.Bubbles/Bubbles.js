@@ -10,13 +10,15 @@ let targetPoints = [];
 let colonPoints = [];
 let magnetsActive = false;
 let boundaries = [];
-
+let ballcolor;
 
 function setup() {
     createCanvas(960, 960); // Canvas bleibt 960x960
     engine = Engine.create();
     let world = engine.world;
     world.gravity.y = 0;
+
+ballcolor = color(0, 255, 255);
 
     textFont('sans-serif');
     textSize(600);
@@ -71,7 +73,6 @@ function draw() {
             Body.applyForce(body, body.position, mouseForce);
         }
     }
-    let ballcolor = (0, 0, 255);
 
     fill(ballcolor);
     noStroke();
