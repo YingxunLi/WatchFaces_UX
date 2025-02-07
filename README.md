@@ -49,6 +49,34 @@
     <p>Bubble Trouble</p>
   </div>
 
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/8.watchface_1/index.html">
+      <img src="images/7.gif" alt="watchface_1" style="width: 200px; height: 200px;">
+    </a>
+    <p>watchface_1</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/9.watchface_2/index.html">
+      <img src="images/7.gif" alt="watchface_2" style="width: 200px; height: 200px;">
+    </a>
+    <p>watchface_2</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/10.watchface_3/index.html">
+      <img src="images/7.gif" alt="watchface_3" style="width: 200px; height: 200px;">
+    </a>
+    <p>watchface_3</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/11.watchface_4/index.html">
+      <img src="images/7.gif" alt="watchface_4" style="width: 200px; height: 200px;">
+    </a>
+    <p>watchface_4</p>
+  </div>
+
 </div>
 
 

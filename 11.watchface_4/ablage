@@ -1,0 +1,42 @@
+let angle = 0; // Startwinkel
+let wavePoints = 20; // Anzahl der Punkte in den Sinuskurven
+let radiusPrimary = 15; // Radius der Kreise für die erste Kurve
+let radiusSecondary = 10; // Radius der Kreise für die zweite Kurve
+let amplitudePrimary = 200; // Amplitude der ersten Sinuskurve
+let amplitudeSecondary = 150; // Amplitude der zweiten Sinuskurve
+let frequencyPrimary = 0.2; // Frequenz der ersten Sinuskurve
+let frequencySecondary = 0.2; // Frequenz der zweiten Sinuskurve
+let speed = 0.05; // Geschwindigkeit der Bewegung
+let offset = Math.PI / 4; // Phasenverschiebung für die zweite Kurve
+
+function setup() {
+  createCanvas(960, 960);
+}
+
+function draw() {
+  background(0); // Schwarzer Hintergrund
+  noStroke();
+
+  // Position der Sinuskurven
+  let startX = 100;
+  let startY = height / 2;
+
+  // ** Erste Sinuskurve (weiß) **
+  fill(255); // Weiße Kreise
+  for (let i = 0; i < wavePoints; i++) {
+    let x = startX + i * 40; // Abstand zwischen den Punkten
+    let y = startY + sin(angle + i * frequencyPrimary) * amplitudePrimary; // Sinusfunktion für die y-Position
+    ellipse(x, y, radiusPrimary * 2); // Zeichne einen Kreis
+  }
+
+  // ** Zweite Sinuskurve (grau, versetzt) **
+  fill(128); // Graue Kreise
+  for (let i = 0; i < wavePoints; i++) {
+    let x = startX + i * 40; // Abstand zwischen den Punkten
+    let y = startY + sin(angle + offset + i * frequencySecondary) * amplitudeSecondary; // Sinusfunktion mit Phasenverschiebung
+    ellipse(x, y, radiusSecondary * 2); // Zeichne einen kleineren Kreis
+  }
+
+  // Bewegung der Kurve
+  angle -= speed; // Der Winkel wird angepasst, um die Animation zu erzeugen
+}
