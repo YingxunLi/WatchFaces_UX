@@ -11,6 +11,7 @@ let colonPoints = [];
 let magnetsActive = false;
 let boundaries = [];
 
+
 function setup() {
     createCanvas(960, 960); // Canvas bleibt 960x960
     engine = Engine.create();
@@ -70,8 +71,9 @@ function draw() {
             Body.applyForce(body, body.position, mouseForce);
         }
     }
+    let ballcolor = (0, 0, 255);
 
-    fill(0, 255, 255);
+    fill(ballcolor);
     noStroke();
     for (let body of particles) {
         let pos = body.position;
