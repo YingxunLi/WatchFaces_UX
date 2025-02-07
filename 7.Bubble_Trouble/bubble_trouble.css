@@ -1,0 +1,50 @@
+:root {
+	--font: 'Bahnschrift', sans-serif;
+	--background-color: #272727;
+	--font-color: rgb(255, 255, 255);
+	--border-color: rgb(69, 69, 69);
+	--canvas-size: 512px;
+	--border-Radius: 30px;
+  }
+
+  body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-color: var(--background-color);
+  }
+
+  #canvasContainer {
+	width: var(--canvas-size);
+	height: var(--canvas-size);
+	border-radius: var(--border-Radius);
+	border: 2px solid var(--border-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+  #controlsContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+	color: var(--font-color);
+	font-size: 20px;
+	font-family: var(--font);
+	line-height: 2;
+  }
+
+  canvas {
+	width: var(--canvas-size);
+	height: var(--canvas-size);
+	border-radius: var(--border-Radius);
+  }
+
+  h1 {
+	font-family: var(--font);
+	color: var(--font-color);
+	font-size: 60px;
+  }
