@@ -81,6 +81,13 @@ function draw() {
         ellipse(pos.x, pos.y, 50);
     }
 
+
+for (let body of particles) {
+    let pos = body.position;
+    console.log('Ball Position:', pos.x, pos.y);  // 打印每个球的位置
+    ellipse(pos.x, pos.y, 50);  // 绘制球
+}
+
     // Weiße Partikel beeinflussen
     for (let body of whiteParticles) {
         let mouseForce = createVector(mouseX - body.position.x, mouseY - body.position.y);
