@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ball Fall</title>
+    <title>Matter.js and p5.js Integration</title>
     <style>
         body {
-            margin: 0;
-            background-color: black;
+            background-color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
+            
+            height: 100vh;  /* Ensure body takes full height */
+
         }
 
-        /* Two-column layout */
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100vh;
+
+         /* Container to hold both canvases */
+         .canvas-container {
+            position: relative;
+            width: 100vmin;  /* Use vmin to ensure square size relative to viewport */
+            height: 100vmin;
         }
 
+        
         /* Left column - Matter.js */
         .left-column {
             flex: 0; /* Macht den Matter.js-Bereich breiter */
@@ -43,35 +48,37 @@
         canvas {
             display: block;
             max-width: 8000%;
-            height: 80%;
+            top: 50%;
+            left: 50%;
         }
+        
     </style>
+</head>
+  <!-- Matter.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
-    <!-- Matter.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <!-- Matter Wrap Plugin -->
+  <script src="https://cdn.jsdelivr.net/gh/liabru/matter-wrap/build/matter-wrap.min.js"></script>
 
-    <!-- Matter Wrap Plugin -->
-    <script src="https://cdn.jsdelivr.net/gh/liabru/matter-wrap/build/matter-wrap.min.js"></script>
+  <!-- p5.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 
-    <!-- p5.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-
-    <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-    <div class="container">
-        <!-- Matter.js Canvas (Links) -->
-        <div class="left-column">
-            <canvas id="matter"></canvas>
-        </div>
+  <div class="container">
+      <!-- Matter.js Canvas (Links) -->
+      <div class="left-column">
+          <canvas id="matter"></canvas>
+      </div>
 
-        <!-- p5.js Canvas (Rechts) -->
-        <div class="right-column" id="p5"></div>
-    </div>
+      <!-- p5.js Canvas (Rechts) -->
+      <div class="right-column" id="p5"></div>
+  </div>
 
-    <!-- Link to JavaScript File -->
-    <script src="Ball_Fall.js"></script>
+  <!-- Link to JavaScript File -->
+  <script src="Ball_Fall.js"></script>
 
 </body>
 </html>

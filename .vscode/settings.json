@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.https": true
+    "liveServer.settings.https": true,
+    "liveServer.settings.port": 5501
 }  
