@@ -1,12 +1,3 @@
-/*
-VSCode Find/Replace mit .*
-<g id="([^"]+)">\n    <path([^\n]+)\n  </g>
-<path id="$1"$2
-<g id="([^"]+)">\n    <polygon([^\n]+)\n  </g>
-<polygon id="$1"$2
-<g id="([^"]+)">\n    <rect([^\n]+)\n  </g>
-<rect id="$1"$2
-*/
 let Engine = Matter.Engine,
   World = Matter.World,
   Bodies = Matter.Bodies,
@@ -40,6 +31,11 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
 
+  
+  engine.gravity.y = 0;
+
+
+
   ground = new BlockCore(
     world,
     { x: 400, y: height + 10, w: width, h: 20, color: 'white' },
@@ -57,7 +53,7 @@ walls.push(new BlockCore(world, { x: width / 2, y: height + 30, w: width, h: 60,
   // Die Ziffern werden 1x geladen werden und später durch kopieren verwendet
   // "save: true" speichert die Daten im Browser
   // wenn das SVG geändert wird, muss es 1x auf "save: false" gesetzt werden !!!
-  new BlocksFromSVG(world, 'ZahlenBIG2.svg', [],
+  new BlocksFromSVG(world, 'Segments_Ziffern.svg', [],
     { isStatic: true, restitution: 0.7, friction: 0.0, frictionAir: 0.0 },
     {
       save: false, sample: 10, offset: { x: 0, y: 0 }, done: (added, time, fromCache) => {
@@ -209,6 +205,12 @@ let showColon = true; // Variable zur Steuerung des Doppelpunkts
 function draw() {
   background(0);
 
+
+    // apply rotation of device to gravity
+    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+    
+  
   if (!stopped) {
     if (reset > 0) {
       magnets.forEach(list => list.forEach(magnet => {
