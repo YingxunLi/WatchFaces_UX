@@ -77,6 +77,27 @@
     <p>⁠Zeigermodell</p>
   </div>
 
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/12.Waves/index.html">
+      <img src="images/12.png" alt="Waves" style="width: 200px; height: 200px;">
+    </a>
+    <p>Waves</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/13.Web/index.html">
+      <img src="images/13.png" alt="Web" style="width: 200px; height: 200px;">
+    </a>
+    <p>Web</p>
+  </div>
+
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/14.Segments_Clock/index.html">
+      <img src="images/14.png" alt="Segments Clock" style="width: 200px; height: 200px;">
+    </a>
+    <p>Segments Clock</p>
+  </div>
+
 </div>
 
 

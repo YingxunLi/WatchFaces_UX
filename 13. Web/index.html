@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="A creative clockwork simulation using p5.js and Matter.js">
   <meta name="author" content="ByronStar">
 
@@ -41,13 +41,15 @@
       margin: 0;
       height: 100%;
       overflow: hidden;
-      background-color: gray;
+      background-color: #333;
     }
 
     canvas {
+      /* center canvas */
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .overlay {
