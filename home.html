@@ -54,13 +54,11 @@
         }
         .container {
             display: grid;
-            grid-template-columns: repeat(6, 1fr); /* 第一、二行 6 列 */
+            grid-template-columns: repeat(6, 1fr);
             gap: 15px;
-            justify-content: center;
         }
         .item {
             text-align: center;
-            margin: 10px;
         }
         .item img {
             width: 200px;
@@ -68,12 +66,17 @@
             border-radius: 10px;
         }
     
-        /* 最后一行单独设置 5 列 */
-        .container .item:nth-child(n+13) {
+        /* 第三行只有 5 个，占满 5 格 */
+        .item:nth-child(13) {
             grid-column: span 5;
-            justify-self: center;
+        }
+    
+        /* 最后一行 5 个，强制排成一行 */
+        .item:nth-last-child(-n+5) {
+            grid-column: span 1;
         }
     </style>
+    
     
 </head>
 <body>
