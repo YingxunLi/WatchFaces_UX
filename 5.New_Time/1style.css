@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #0F0F0F; /* Dunkler Hintergrund */
+    background-color: #333; /* Dunkler Hintergrund */
     display: flex;
     justify-content: center;
     align-items: center;
