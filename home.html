@@ -11,30 +11,20 @@
             padding: 20px;
         }
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
         }
         .item {
             text-align: center;
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .item:hover {
-            transform: scale(1.1);
+            margin: 10px;
         }
         .item img {
             width: 200px;
             height: 200px;
-            object-fit: cover;
             border-radius: 10px;
         }
     </style>
-    
 </head>
 <body>
     <div class="container">
