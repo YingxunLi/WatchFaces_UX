@@ -11,17 +11,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 
   <style>
-    /* Zentriert das Canvas im Bildschirm */
     body {
-      margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      /* height: 100vh; */
-      background-color: #000; /* Schwarzer Hintergrund */
+      margin: 0;
+      background-color: #333;
     }
-
 
     button {
       /* center button */
@@ -38,10 +32,12 @@
       z-index: 1;
     }
 
-    /* Stil für das Canvas mit hellblauem Rahmen */
     canvas {
-      border: 0px solid #7ec8e3; /* Hellblauer Rahmen */
-      box-shadow: 0 0 0px #7ec8e3; /* Leichter Leuchteffekt */
+      /* center canvas */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
