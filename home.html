@@ -25,7 +25,7 @@
             border-radius: 10px;
         }
     </style> -->
-    <style>
+    <!-- <style>
         body {
             background-color: grey;
             font-family: Arial, sans-serif;
@@ -45,7 +45,37 @@
             height: 200px;
             border-radius: 10px;
         }
-    </style></head>
+    </style> -->
+    <style>
+        body {
+            background-color: grey;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 第一、二行 6 列 */
+            gap: 15px;
+            justify-content: center;
+        }
+        .item {
+            text-align: center;
+            margin: 10px;
+        }
+        .item img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+        }
+    
+        /* 最后一行单独设置 5 列 */
+        .container .item:nth-child(n+13) {
+            grid-column: span 5;
+            justify-self: center;
+        }
+    </style>
+    
+</head>
 <body>
     <div class="container">
         <div class="item">
