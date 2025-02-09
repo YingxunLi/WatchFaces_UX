@@ -98,6 +98,13 @@
     <p>Segments Clock</p>
   </div>
 
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/15.Free_Palestine/index.html">
+      <img src="images/14.png" alt="Free Palestine" style="width: 200px; height: 200px;">
+    </a>
+    <p>Free Palestine</p>
+  </div>
+
 </div>
 
 
