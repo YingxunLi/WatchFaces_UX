@@ -18,9 +18,6 @@ function setup() {
   engine = Matter.Engine.create();
   world = engine.world;
 
-  engine.gravity.y = 0;
-
-
   // Initialisiere das Polygon-Objekt
   polygon = new Polygon([
     createVector(0, 404.74),
@@ -65,11 +62,7 @@ function draw() {
   background(255);
 
 
-  // apply rotation of device to gravity
-  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-  
-  
+
   // Berechne die verstrichene Zeit
   let elapsedTime = millis() - startTime;
 
