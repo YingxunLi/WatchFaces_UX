@@ -50,31 +50,31 @@
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/8.watchface_1/index.html">
-      <img src="images/8.png" alt="watchface_1" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/8.Blubberblasen/index.html">
+      <img src="images/8.png" alt="Blubberblasen" style="width: 200px; height: 200px;">
     </a>
-    <p>watchface_1</p>
+    <p>Blubberblasen</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/9.watchface_2/index.html">
-      <img src="images/9.png" alt="watchface_2" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/9.⁠Käse/index.html">
+      <img src="images/9.png" alt="⁠Käse" style="width: 200px; height: 200px;">
     </a>
-    <p>watchface_2</p>
+    <p>⁠Käse</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/10.watchface_3/index.html">
-      <img src="images/10.png" alt="watchface_3" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/10.⁠Bällebad/index.html">
+      <img src="images/10.png" alt="⁠Bällebad" style="width: 200px; height: 200px;">
     </a>
-    <p>watchface_3</p>
+    <p>⁠Bällebad</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/11.watchface_4/index.html">
-      <img src="images/11.png" alt="watchface_4" style="width: 200px; height: 200px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/11.⁠Zeigermodell/index.html">
+      <img src="images/11.png" alt="⁠Zeigermodell" style="width: 200px; height: 200px;">
     </a>
-    <p>watchface_4</p>
+    <p>⁠Zeigermodell</p>
   </div>
 
 </div>
