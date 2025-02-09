@@ -105,6 +105,13 @@
     <p>Free Palestine</p>
   </div>
 
+  <div style="text-align: center; margin: 10px;">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/16.Magnet_Flowers/index.html">
+      <img src="images/15.png" alt="Magnet Flowers" style="width: 200px; height: 200px;">
+    </a>
+    <p>Magnet Flowers</p>
+  </div>
+
 </div>
 
 
