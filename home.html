@@ -46,7 +46,7 @@
             border-radius: 10px;
         }
     </style> -->
-    <style>
+    <!-- <style>
         body {
             background-color: rgb(240, 240, 240);
             font-family: Arial, sans-serif;
@@ -75,8 +75,37 @@
         .item:nth-last-child(-n+5) {
             grid-column: span 1;
         }
-    </style> 
+    </style>  -->
     
+<style>
+    body {
+    background-color: grey;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* 整体居中 */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 自动调整列数，最小宽度200px */
+    gap: 15px; /* 元素间距 */
+    max-width: 1200px; /* 最大宽度限制 */
+    width: 100%;
+}
+
+.item {
+    text-align: left; /* 左对齐内容 */
+}
+
+.item img {
+    width: 100%; /* 图片自适应 */
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+</style>    
 </head>
 <body>
     <div class="container">
