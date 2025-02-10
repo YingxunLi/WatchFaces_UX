@@ -14,8 +14,6 @@ let followBall = false;
 let changeLineColor = false;
 let ballBody;
 
-let ballVelocity = createVector(0, 0); // 初始速度
-
 function setup() {
   createCanvas(600, 600);
   engine = Engine.create();
@@ -43,6 +41,7 @@ function setup() {
   ball = {
     pos: createVector(width / 2, height / 2),
     radius: 15,
+    velocity: createVector(0, 0),  // 初始速度
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
@@ -66,17 +65,21 @@ function draw() {
     engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
   }
 
-  // 更新小球的速度，受重力影响
-  ballVelocity.add(engine.gravity);
-  ball.pos.add(ballVelocity);
-  ballVelocity.mult(0.95); // 摩擦力
+  gravity = createVector(ballBody.position.x, ballBody.position.y);
 
-  // 控制小球不跑出边界
+  // 小球速度受引力和摩擦影响
+  ball.velocity.add(engine.gravity);
+  ball.pos.add(ball.velocity);
+  ball.velocity.mult(0.95);  // 摩擦力使球速逐渐减缓
+
+  // 限制小球不超出画布
   ball.pos.x = constrain(ball.pos.x, ball.radius, width - ball.radius);
   ball.pos.y = constrain(ball.pos.y, ball.radius, height - ball.radius);
 
-  gravity = createVector(ballBody.position.x, ballBody.position.y);
+  // 更新小球的位置
+  Matter.Body.setPosition(ballBody, ball.pos);
 
+  // 绘制数字
   let h = hour();
   let m = minute();
 
