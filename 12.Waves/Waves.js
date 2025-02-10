@@ -13,6 +13,8 @@ function setup() {
   createCanvas(960, 960);  // 更改画布大小
   gravity = createVector(width / 2, height / 2);
 
+  engine.gravity.y = 0;
+
   waveSeedX = random(1000);
   waveSeedY = random(1000);
 
@@ -48,6 +50,10 @@ function draw() {
   strokeWeight(2 * 1.6);  // 调整线条宽度
 
   gravity.set(ball.pos.x, ball.pos.y);
+
+
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
 
   let h = hour();
   let m = minute();
