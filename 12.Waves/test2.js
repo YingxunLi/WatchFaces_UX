@@ -60,10 +60,9 @@ function draw() {
   Engine.update(engine);
 
   // 仅在手机端使用设备重力感应
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
     engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
     engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-  }
+  
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 

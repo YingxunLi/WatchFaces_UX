@@ -11,7 +11,7 @@ let ballVelocity;
 
 function setup() {
   createCanvas(600, 600);
-  gravity = createVector(width / 2, height / 2);
+  gravity = 0;
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
@@ -46,6 +46,9 @@ function setup() {
 function draw() {
   background(0);
   strokeWeight(2);
+
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
 
   // Die "Gravitation" zeigt auf die Kugel
   gravity.set(ball.pos.x, ball.pos.y);
