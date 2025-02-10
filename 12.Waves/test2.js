@@ -13,7 +13,8 @@ let waveSeedX, waveSeedY;
 let followBall = false;
 let changeLineColor = false;
 let ballBody;
-let ballVelocity;
+
+let ballVelocity = createVector(0, 0); // 初始速度
 
 function setup() {
   createCanvas(600, 600);
@@ -44,8 +45,6 @@ function setup() {
     radius: 15,
   };
 
-  ballVelocity = createVector(0, 0);
-
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
     restitution: 0.5,
     friction: 0.1,
@@ -61,15 +60,18 @@ function draw() {
   background(0);
   Engine.update(engine);
 
+  // 仅在手机端使用设备重力感应
   if (/Mobi|Android/i.test(navigator.userAgent)) {
     engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
     engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
   }
 
+  // 更新小球的速度，受重力影响
   ballVelocity.add(engine.gravity);
   ball.pos.add(ballVelocity);
-  ballVelocity.mult(0.95);
+  ballVelocity.mult(0.95); // 摩擦力
 
+  // 控制小球不跑出边界
   ball.pos.x = constrain(ball.pos.x, ball.radius, width - ball.radius);
   ball.pos.y = constrain(ball.pos.y, ball.radius, height - ball.radius);
 
@@ -136,11 +138,11 @@ function draw() {
     line(point.current.x, point.current.y, endX, endY);
   });
 
-  fill(100, 150, 255);
+  // 绘制小球
+  fill(100, 150, 255); // 设定小球颜色为蓝色
   noStroke();
   ellipse(ball.pos.x, ball.pos.y, ball.radius * 2);
 
-  ball.pos.set(ballBody.position.x, ballBody.position.y);
   waveOffset += 1;
 }
 
