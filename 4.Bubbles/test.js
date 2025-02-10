@@ -148,29 +148,39 @@ function explode(x, y, radius, forceMagnitude) {
 
 function getTextPoints(txt, x, y, fontSize) {
     let points = [];
+    
+    // 创建离屏画布
     let textGraphic = createGraphics(width, height);
     textGraphic.textFont('sans-serif');
     textGraphic.textSize(fontSize);
     textGraphic.fill(255);
     textGraphic.textAlign(CENTER, CENTER);
+    
+    // 绘制文本
     textGraphic.text(txt, x, y);
-
-    // 确保图形像素正常加载
+    
+    // 加载像素数据
     textGraphic.loadPixels();
-    console.log(textGraphic.pixels);  // 输出像素信息，查看是否加载成功
-
-    if (textGraphic.pixels.length === 0) {
-        console.error("Text graphic pixels are empty, check canvas rendering.");
-    }
-
-    for (let i = 0; i < textGraphic.width; i += 12) {
-        for (let j = 0; j < textGraphic.height; j += 12) {
-            let idx = 4 * (i + j * textGraphic.width);
-            if (textGraphic.pixels[idx] > 128) {
-                points.push({ x: i + x, y: j + y });
+    
+    // 输出像素数据到控制台
+    console.log(textGraphic.pixels);  // 查看pixels数组
+    
+    // 获取文本的像素点
+    for (let i = 0; i < textGraphic.width; i++) {
+        for (let j = 0; j < textGraphic.height; j++) {
+            let index = (i + j * textGraphic.width) * 4;
+            let r = textGraphic.pixels[index];
+            let g = textGraphic.pixels[index + 1];
+            let b = textGraphic.pixels[index + 2];
+            let a = textGraphic.pixels[index + 3];
+            
+            // 如果是非透明的像素，记录它的坐标
+            if (a > 0) {
+                points.push(createVector(i, j));
             }
         }
     }
+    
     return points;
 }
 
