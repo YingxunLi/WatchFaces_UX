@@ -157,6 +157,7 @@ function getTextPoints(txt, x, y, fontSize) {
 
     // 确保图形像素正常加载
     textGraphic.loadPixels();
+    console.log(textGraphic.pixels);  // 输出像素信息，查看是否加载成功
 
     if (textGraphic.pixels.length === 0) {
         console.error("Text graphic pixels are empty, check canvas rendering.");
