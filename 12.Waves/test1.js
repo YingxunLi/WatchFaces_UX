@@ -11,7 +11,8 @@ let ballVelocity;
 
 function setup() {
   createCanvas(600, 600);
-  gravity = 0;
+  gravity = createVector(width / 2, height / 2);
+  engine.gravity.y = 0;
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
