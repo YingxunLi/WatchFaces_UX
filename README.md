@@ -78,7 +78,7 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/8.Blubberblasen/index.html">
-      <img src="images/8.mp4" alt="Blubberblasen" style="width: 200px; height: 200px;">
+      <img src="images/8.gif" alt="Blubberblasen" style="width: 200px; height: 200px;">
     </a>
     <p>Blubberblasen</p>
   </div>
