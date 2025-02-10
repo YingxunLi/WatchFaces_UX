@@ -29,21 +29,21 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/1.Floating_Geometry/index.html">
-      <img src="images/1.png" alt="Floating Geometry" style="width: 200px; height: 200px;">
+      <img src="images/1.gif" alt="Floating Geometry" style="width: 200px; height: 200px;">
     </a>
     <p>Floating Geometry</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/2.Scratch_Card/">
-      <img src="images/4.png" alt="Scratch Card" style="width: 200px; height: 200px;">
+      <img src="images/2.gif" alt="Scratch Card" style="width: 200px; height: 200px;">
     </a>
     <p>Scratch Card</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/3.Zeitfluss/index.html">
-      <img src="images/3.png" alt="Zeitfluss" style="width: 200px; height: 200px;">
+      <img src="images/3.gif" alt="Zeitfluss" style="width: 200px; height: 200px;">
     </a>
     <p>Zeitfluss</p>
   </div>
