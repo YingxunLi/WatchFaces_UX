@@ -18,15 +18,12 @@ function setup() {
   createCanvas(600, 600);
   engine = Engine.create();
   world = engine.world;
-  // engine.gravity.scale = 0.001;
-  
-  engine.gravity.y = 0;
+  engine.gravity.scale = 0.001;
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
 
   let spacing = 15;
-
   for (let x = spacing; x < width; x += spacing) {
     for (let y = spacing; y < height; y += spacing) {
       points.push({
@@ -61,8 +58,11 @@ function draw() {
   background(0);
   Engine.update(engine);
 
-  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+  // 仅在手机端使用设备重力感应
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+  }
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
@@ -73,10 +73,8 @@ function draw() {
   fontGraphics.fill(255);
   fontGraphics.textSize(fontSize);
   fontGraphics.textAlign(CENTER, CENTER);
-
   fontGraphics.text(nf(h, 2), width / 2, height / 4);
   fontGraphics.text(nf(m, 2), width / 2, (3 * height) / 4);
-
   fontGraphics.loadPixels();
 
   points.forEach((point) => {
@@ -124,11 +122,15 @@ function draw() {
     }
 
     strokeWeight(point.strokeWeight);
-
     let endX = point.current.x + cos(point.angle) * point.length;
     let endY = point.current.y + sin(point.angle) * point.length;
     line(point.current.x, point.current.y, endX, endY);
   });
+
+  // 绘制小球
+  fill(100, 150, 255); // 设定小球颜色为蓝色
+  noStroke();
+  ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
   ball.pos.set(ballBody.position.x, ballBody.position.y);
   waveOffset += 1;
