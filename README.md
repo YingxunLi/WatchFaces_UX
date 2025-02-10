@@ -1,5 +1,3 @@
-# Watchfaces
-
 <div style="display: flex; justify-content: space-between;">
 
 <div style="width: 30%;">
