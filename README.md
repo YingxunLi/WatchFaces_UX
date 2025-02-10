@@ -105,7 +105,7 @@ Benno Stäbler
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/12.Waves/index.html">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/12.Waves/test.html">
       <img src="images/12.png" alt="Waves" style="width: 200px; height: 200px;">
     </a>
     <p>Waves</p>
