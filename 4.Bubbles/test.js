@@ -12,6 +12,8 @@ let colonPoints = [];
 let magnetsActive = false;
 let boundaries = [];
 
+
+
 function setup() {
     createCanvas(960, 960); // 创建画布 960x960
     engine = Engine.create();

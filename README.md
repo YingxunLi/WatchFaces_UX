@@ -127,14 +127,14 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/15.Free_Palestine/index.html">
-      <img src="images/15.png" alt="Free Palestine" style="width: 200px; height: 200px;">
+      <img src="images/15.gif" alt="Free Palestine" style="width: 200px; height: 200px;">
     </a>
     <p>Free Palestine</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/16.Magnet_Flowers/index.html">
-      <img src="images/16.png" alt="Magnet Flowers" style="width: 200px; height: 200px;">
+      <img src="images/16.gif" alt="Magnet Flowers" style="width: 200px; height: 200px;">
     </a>
     <p>Magnet Flowers</p>
   </div>
@@ -142,7 +142,7 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/17.Reversed_Falling/index.html">
-      <img src="images/17.png" alt="Reversed Falling" style="width: 200px; height: 200px;">
+      <img src="images/17.gif" alt="Reversed Falling" style="width: 200px; height: 200px;">
     </a>
     <p>Reversed Falling</p>
   </div>
