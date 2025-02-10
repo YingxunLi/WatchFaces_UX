@@ -49,7 +49,7 @@ Benno Stäbler
   </div>
 
   <div style="text-align: center; margin: 10px;">
-    <a href="https://yingxunli.github.io/WatchFaces_UX/4.Bubbles/bubbles.html">
+    <a href="https://yingxunli.github.io/WatchFaces_UX/4.Bubbles/index.html">
       <img src="images/2.png" alt="Bubbles" style="width: 200px; height: 200px;">
     </a>
     <p>Bubbles</p>
