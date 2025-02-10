@@ -1,3 +1,28 @@
+# Watchfaces
+
+<div style="display: flex; justify-content: space-between;">
+
+<div style="width: 30%;">
+<strong>Programmiertes Entwerfen 1</strong><br>
+Interaktionsgestaltung<br>
+Wintersemester 2024/25<br>
+1. Semester
+</div>
+
+<div style="width: 30%;">
+<strong>Studierende</strong><br>
+IG 1
+</div>
+
+<div style="width: 30%;">
+<strong>Betreuende</strong><br>
+Prof. Benedikt Groß<br>
+Prof. Andreas Pollok<br>
+Benno Stäbler
+</div>
+
+
+</div>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
   <div style="text-align: center; margin: 10px;">
