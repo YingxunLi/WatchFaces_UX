@@ -146,7 +146,6 @@ function explode(x, y, radius, forceMagnitude) {
     }
 }
 
-// 获取文本的坐标点
 function getTextPoints(txt, x, y, fontSize) {
     let points = [];
     let textGraphic = createGraphics(width, height);
@@ -156,17 +155,24 @@ function getTextPoints(txt, x, y, fontSize) {
     textGraphic.textAlign(CENTER, CENTER);
     textGraphic.text(txt, x, y);
 
+    // 确保图形像素正常加载
     textGraphic.loadPixels();
+
+    if (textGraphic.pixels.length === 0) {
+        console.error("Text graphic pixels are empty, check canvas rendering.");
+    }
+
     for (let i = 0; i < textGraphic.width; i += 12) {
         for (let j = 0; j < textGraphic.height; j += 12) {
             let idx = 4 * (i + j * textGraphic.width);
             if (textGraphic.pixels[idx] > 128) {
-                points.push({ x: i, y: j });
+                points.push({ x: i + x, y: j + y });
             }
         }
     }
     return points;
 }
+
 
 // 边界类
 class Boundary {
