@@ -152,6 +152,8 @@ function explode(x, y, radius, forceMagnitude) {
 }
 
 // 获取文本的坐标点
+
+
 function getTextPoints(txt, x, y, fontSize) {
     let points = [];
     let textGraphic = createGraphics(width, height);
@@ -162,6 +164,8 @@ function getTextPoints(txt, x, y, fontSize) {
     textGraphic.text(txt, x, y);
 
     textGraphic.loadPixels();
+    console.log("textGraphic.pixels: ", textGraphic.pixels);  // 输出像素信息，检查是否加载成功
+
     for (let i = 0; i < textGraphic.width; i += 12) {
         for (let j = 0; j < textGraphic.height; j += 12) {
             let idx = 4 * (i + j * textGraphic.width);
@@ -170,6 +174,9 @@ function getTextPoints(txt, x, y, fontSize) {
             }
         }
     }
+    
+    console.log("生成的目标点: ", points);  // 输出生成的目标点
+
     return points;
 }
 
