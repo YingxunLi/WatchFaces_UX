@@ -85,21 +85,21 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/9.⁠Käse/index.html">
-      <img src="images/9.mp4" alt="⁠Käse" style="width: 200px; height: 200px;">
+      <img src="images/9.gif" alt="⁠Käse" style="width: 200px; height: 200px;">
     </a>
     <p>⁠Käse</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/10.⁠Bällebad/index.html">
-      <img src="images/10.mp4" alt="⁠Bällebad" style="width: 200px; height: 200px;">
+      <img src="images/10.gif" alt="⁠Bällebad" style="width: 200px; height: 200px;">
     </a>
     <p>⁠Bällebad</p>
   </div>
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/11.⁠Zeigermodell/index.html">
-      <img src="images/11.mp4" alt="⁠Zeigermodell" style="width: 200px; height: 200px;">
+      <img src="images/11.gif" alt="⁠Zeigermodell" style="width: 200px; height: 200px;">
     </a>
     <p>⁠Zeigermodell</p>
   </div>
