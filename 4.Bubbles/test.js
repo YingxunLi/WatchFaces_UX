@@ -43,16 +43,15 @@ function setup() {
             frictionAir: 0.01
         });
         particles.push(body);
-        World.add(world, body);
+        // World.add(world, body);
+        World.add(engine.world, body);
+        console.log("粒子添加到世界: ", body);
+        
     }
 }
 
 function draw() {
     background(0);  // 设置背景为黑色
-
-    // 使用设备旋转数据调整重力方向
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
 
     Engine.update(engine);  // 更新物理引擎
     adjustWhiteParticles(second());  // 调整白色粒子的数量
