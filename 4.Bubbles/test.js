@@ -57,6 +57,12 @@ function draw() {
     Engine.update(engine);  // 更新物理引擎
     adjustWhiteParticles(second());  // 调整白色粒子的数量
 
+
+    fill(0, 255, 255);  // 青色
+    noStroke();
+    ellipse(100, 100, 50, 50);  // 绘制一个圆形测试青色是否显示
+
+
     // 处理粒子位置
     for (let i = 0; i < particles.length; i++) {
         let body = particles[i];
@@ -146,44 +152,27 @@ function explode(x, y, radius, forceMagnitude) {
     }
 }
 
+// 获取文本的坐标点
 function getTextPoints(txt, x, y, fontSize) {
     let points = [];
-    
-    // 创建离屏画布
     let textGraphic = createGraphics(width, height);
     textGraphic.textFont('sans-serif');
     textGraphic.textSize(fontSize);
     textGraphic.fill(255);
     textGraphic.textAlign(CENTER, CENTER);
-    
-    // 绘制文本
     textGraphic.text(txt, x, y);
-    
-    // 加载像素数据
+
     textGraphic.loadPixels();
-    
-    // 输出像素数据到控制台
-    console.log(textGraphic.pixels);  // 查看pixels数组
-    
-    // 获取文本的像素点
-    for (let i = 0; i < textGraphic.width; i++) {
-        for (let j = 0; j < textGraphic.height; j++) {
-            let index = (i + j * textGraphic.width) * 4;
-            let r = textGraphic.pixels[index];
-            let g = textGraphic.pixels[index + 1];
-            let b = textGraphic.pixels[index + 2];
-            let a = textGraphic.pixels[index + 3];
-            
-            // 如果是非透明的像素，记录它的坐标
-            if (a > 0) {
-                points.push(createVector(i, j));
+    for (let i = 0; i < textGraphic.width; i += 12) {
+        for (let j = 0; j < textGraphic.height; j += 12) {
+            let idx = 4 * (i + j * textGraphic.width);
+            if (textGraphic.pixels[idx] > 128) {
+                points.push({ x: i, y: j });
             }
         }
     }
-    
     return points;
 }
-
 
 // 边界类
 class Boundary {
