@@ -70,14 +70,14 @@ function setup() {
 
     Engine.run(engine);
 
-    // Maussteuerung
-    Events.on(mouseConstraint, 'startdrag', function (event) {
+    // 统一的拖动处理函数
+    function onDragStart(event) {
         if (event.body === pendulum) {
             pendulumGrabbed = true;
         }
-    });
+    }
 
-    Events.on(mouseConstraint, 'mousemove', function (event) {
+    function onDragMove(event) {
         if (pendulumGrabbed) {
             let pendulumX = pendulum.position.x;
             let centerX = canvasWidth / 2;
@@ -93,15 +93,20 @@ function setup() {
                 borderColorRight = '#404040';
             }
         }
-    });
+    }
 
-    Events.on(mouseConstraint, 'enddrag', function (event) {
+    function onDragEnd(event) {
         if (event.body === pendulum) {
             pendulumGrabbed = false;
             borderColorLeft = '#404040';
             borderColorRight = '#404040';
         }
-    });
+    }
+
+    // Mouse 和 Touch 事件合并
+    Events.on(mouseConstraint, 'startdrag', onDragStart);
+    Events.on(mouseConstraint, 'mousemove', onDragMove);
+    Events.on(mouseConstraint, 'enddrag', onDragEnd);
 
     // Touchsteuerung
     canvas.elt.addEventListener('touchstart', (event) => {
