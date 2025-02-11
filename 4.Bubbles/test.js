@@ -59,9 +59,9 @@ function draw() {
     adjustWhiteParticles(second());  // 调整白色粒子的数量
 
 
-    fill(0, 255, 255);  // 青色
-    noStroke();
-    ellipse(300, 300, 300, 50);  // 绘制一个圆形测试青色是否显示
+    // fill(0, 255, 255);  // 青色
+    // noStroke();
+    // ellipse(300, 300, 300, 50);  // 绘制一个圆形测试青色是否显示
 
 
     // 处理粒子位置
