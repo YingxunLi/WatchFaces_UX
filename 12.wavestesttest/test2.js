@@ -11,6 +11,7 @@ let fontGraphics;
 let waveOffset = 0;
 let waveSeedX, waveSeedY;
 let followBall = false;
+let changeLineColor = false;
 let ballBody;
 
 function setup() {
@@ -52,27 +53,15 @@ function setup() {
 
   fontGraphics = createGraphics(width, height);
   fontGraphics.pixelDensity(1);
-
-  // Add event listener for device orientation (for mobile)
-  window.addEventListener("deviceorientation", function(event) {
-    let beta = event.beta; // X-axis tilt (front/back)
-    let gamma = event.gamma; // Y-axis tilt (left/right)
-    
-    // Adjust gravity based on device orientation
-    engine.gravity.x = (gamma / 90) * 0.2; // Make gravity between -0.2 and 0.2
-    engine.gravity.y = (beta / 90) * 0.2;
-  });
 }
 
 function draw() {
   background(0);
   Engine.update(engine, 1000 / 30); // Ensure iOS doesn't reduce refresh rate
 
-  // Apply gravity based on device orientation
-  let gravityX = (rotationY / 2 - engine.gravity.x) * 0.5;
-  let gravityY = (rotationX / 2 - engine.gravity.y) * 0.5;
-  engine.gravity.x = gravityX;
-  engine.gravity.y = gravityY;
+  // Apply rotation of device to gravity
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;  // Use rotationY
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;  // Use rotationX
   
   // Move the ball to follow the mouse position
   Matter.Body.setPosition(ballBody, { x: mouseX, y: mouseY });
@@ -143,7 +132,7 @@ function draw() {
   });
 
   // Draw the blue ball
-  fill(100, 150, 255,50); // Set ball color to blue
+  fill(100, 150, 255, 50); // Set ball color to blue
   noStroke();
   ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
