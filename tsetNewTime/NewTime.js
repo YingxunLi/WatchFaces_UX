@@ -11,6 +11,7 @@ const borderThickness = 100;
 let timeMultiplier = 1;
 let simulatedTime = Date.now();
 let pendulumGrabbed = false;
+let isTouching = false;
 
 let borderColorLeft = '#404040';
 let borderColorRight = '#404040';
@@ -69,14 +70,14 @@ function setup() {
 
     Engine.run(engine);
 
-    // Maussteuerung
-    Events.on(mouseConstraint, 'startdrag', function (event) {
+    // 统一的拖动处理函数
+    function onDragStart(event) {
         if (event.body === pendulum) {
             pendulumGrabbed = true;
         }
-    });
+    }
 
-    Events.on(mouseConstraint, 'mousemove', function (event) {
+    function onDragMove(event) {
         if (pendulumGrabbed) {
             let pendulumX = pendulum.position.x;
             let centerX = canvasWidth / 2;
@@ -92,14 +93,58 @@ function setup() {
                 borderColorRight = '#404040';
             }
         }
-    });
+    }
 
-    Events.on(mouseConstraint, 'enddrag', function (event) {
+    function onDragEnd(event) {
         if (event.body === pendulum) {
             pendulumGrabbed = false;
             borderColorLeft = '#404040';
             borderColorRight = '#404040';
         }
+    }
+
+    // Mouse 和 Touch 事件合并
+    Events.on(mouseConstraint, 'startdrag', onDragStart);
+    Events.on(mouseConstraint, 'mousemove', onDragMove);
+    Events.on(mouseConstraint, 'enddrag', onDragEnd);
+
+    // Touchsteuerung
+    canvas.elt.addEventListener('touchstart', (event) => {
+        let touch = event.touches[0];
+        let touchX = touch.clientX;
+        let touchY = touch.clientY;
+        let d = dist(touchX, touchY, pendulum.position.x, pendulum.position.y);
+        if (d < baseBallRadius) {
+            isTouching = true;
+            pendulumGrabbed = true;
+        }
+    });
+
+    canvas.elt.addEventListener('touchmove', (event) => {
+        if (isTouching) {
+            let touch = event.touches[0];
+            Matter.Body.setPosition(pendulum, { x: touch.clientX, y: touch.clientY });
+            event.preventDefault();
+        }
+    });
+
+    canvas.elt.addEventListener('touchend', () => {
+        isTouching = false;
+        pendulumGrabbed = false;
+    });
+
+    // Kollisionserkennung für das Pendel
+    Events.on(engine, "collisionStart", function(event) {
+        event.pairs.forEach(function(pair) {
+            if ((pair.bodyA === pendulum && pair.bodyB === leftBorder) || (pair.bodyB === pendulum && pair.bodyA === leftBorder)) {
+                showLeftRectangles = true;
+                leftTimer = millis();
+            }
+            if ((pair.bodyA === pendulum && pair.bodyB === rightBorder) || (pair.bodyB === pendulum && pair.bodyA === rightBorder)) {
+                showRightRectangles = true;
+                rightTimer = millis();
+            }
+        });
     });
 }
 
