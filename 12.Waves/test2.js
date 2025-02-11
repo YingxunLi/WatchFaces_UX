@@ -41,7 +41,6 @@ function setup() {
   ball = {
     pos: createVector(width / 2, height / 2),
     radius: 15,
-    velocity: createVector(0, 0),  // 初始速度
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
@@ -59,26 +58,20 @@ function draw() {
   background(0);
   Engine.update(engine);
 
+  // 限制球体在画布范围内
+  Matter.Body.setPosition(ballBody, {
+    x: constrain(ballBody.position.x, ball.radius, width - ball.radius),
+    y: constrain(ballBody.position.y, ball.radius, height - ball.radius),
+});
+
   // 仅在手机端使用设备重力感应
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
     engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
     engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-  
+  }
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
-  // 小球速度受引力和摩擦影响
-  ball.velocity.add(engine.gravity);
-  ball.pos.add(ball.velocity);
-  ball.velocity.mult(0.95);  // 摩擦力使球速逐渐减缓
-
-  // 限制小球不超出画布
-  ball.pos.x = constrain(ball.pos.x, ball.radius, width - ball.radius);
-  ball.pos.y = constrain(ball.pos.y, ball.radius, height - ball.radius);
-
-  // 更新小球的位置
-  Matter.Body.setPosition(ballBody, ball.pos);
-
-  // 绘制数字
   let h = hour();
   let m = minute();
 
@@ -102,20 +95,20 @@ function draw() {
       point.isTimePart = false;
     }
 
-    if (point.blueIntensity > 0) {
-      let mouseDir = createVector(point.current.x - mouseX, point.current.y - mouseY);
-      let distance = mouseDir.mag();
-      if (distance < 50) {
-        mouseDir.setMag(5 - distance / 10);
-        point.current.add(mouseDir);
-      }
-      stroke(0, 79, 77);
-      point.blueIntensity = max(0, point.blueIntensity - 10);
-      point.strokeWeight = map(point.blueIntensity, 255, 0, 4, 2);
+    // 计算球与线条的距离
+    let d = dist(ballBody.position.x, ballBody.position.y, point.current.x, point.current.y);
+    if (d < ball.radius + point.length) {
+      // 让靠近球的线条受到影响，向远离球的方向偏移
+      let moveDir = createVector(point.current.x - ballBody.position.x, point.current.y - ballBody.position.y);
+      moveDir.setMag(2); // 偏移力度
+      point.current.add(moveDir);
     } else {
+      // 逐渐恢复到原始位置
       point.current.x = lerp(point.current.x, point.base.x, 0.1);
       point.current.y = lerp(point.current.y, point.base.y, 0.1);
-      point.strokeWeight = 2;
+    }
+
+    
 
       if (point.isTimePart) {
         if (followBall) {
@@ -132,7 +125,7 @@ function draw() {
         point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
         stroke(abs(cos(point.angle)) > 0.99 || abs(sin(point.angle)) > 0.99 ? 255 : 169);
       }
-    }
+    
 
     strokeWeight(point.strokeWeight);
     let endX = point.current.x + cos(point.angle) * point.length;
@@ -143,8 +136,9 @@ function draw() {
   // 绘制小球
   fill(100, 150, 255); // 设定小球颜色为蓝色
   noStroke();
-  ellipse(ball.pos.x, ball.pos.y, ball.radius * 2);
+  ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
+  ball.pos.set(ballBody.position.x, ballBody.position.y);
   waveOffset += 1;
 }
 
