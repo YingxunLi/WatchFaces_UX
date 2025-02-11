@@ -69,6 +69,11 @@ function draw() {
   background(0);
   Engine.update(engine, 1000 / 30); // Ensure iOS doesn't reduce refresh rate
 
+    // apply rotation of device to gravity
+    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+    
+  
   // Move the ball to follow the mouse position
   Matter.Body.setPosition(ballBody, { x: mouseX, y: mouseY });
 
