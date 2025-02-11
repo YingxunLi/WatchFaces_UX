@@ -1,7 +1,7 @@
 let points = [];
 let gravity;
 let ball;
-let fontSize = 300;
+let fontSize = 300 * 1.6;
 let fontGraphics;
 let waveOffset = 0;
 let waveSeedX, waveSeedY;
