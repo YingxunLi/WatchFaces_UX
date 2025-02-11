@@ -18,7 +18,7 @@ function setup() {
   createCanvas(600, 600);
   engine = Engine.create();
   world = engine.world;
-  engine.gravity.scale = 0.001;
+  engine.gravity.y = 0;
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
