@@ -61,6 +61,13 @@ function setup() {
 function draw() {
     background(0);  // 设置背景为黑色
 
+
+      // apply rotation of device to gravity
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+  
+
+  
     Engine.update(engine);  // 更新物理引擎
     adjustWhiteParticles(second());  // 调整白色粒子的数量
 
