@@ -50,7 +50,7 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/4.Bubbles/index.html">
-      <img src="images/2.png" alt="Bubbles" style="width: 200px; height: 200px;">
+      <img src="images/4.gif" alt="Bubbles" style="width: 200px; height: 200px;">
     </a>
     <p>Bubbles</p>
   </div>
@@ -106,7 +106,7 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/12.Waves/index.html">
-      <img src="images/12.png" alt="Waves" style="width: 200px; height: 200px;">
+      <img src="images/12.gif" alt="Waves" style="width: 200px; height: 200px;">
     </a>
     <p>Waves</p>
   </div>
