@@ -40,7 +40,7 @@ function setup() {
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 80,
+    radius: 50,
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
@@ -59,6 +59,7 @@ function setup() {
     let beta = event.beta; // X-axis tilt (front/back)
     let gamma = event.gamma; // Y-axis tilt (left/right)
     
+    // Adjust gravity based on device orientation
     engine.gravity.x = (gamma / 90) * 0.2; // Make gravity between -0.2 and 0.2
     engine.gravity.y = (beta / 90) * 0.2;
   });
@@ -137,7 +138,7 @@ function draw() {
   });
 
   // Draw the blue ball
-  fill(100, 150, 255, 50); // Set ball color to blue
+  fill(100, 150, 255,50); // Set ball color to blue
   noStroke();
   ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
