@@ -40,14 +40,17 @@ function setup() {
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 50,
+    radius: 100,
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
-    restitution: 0.5,
-    friction: 0.1,
-    frictionAir: 0.01,
+    restitution: 0.8,
+    friction: 0.01,
+    frictionAir: 0.001,
   });
+
+
+
   World.add(world, ballBody);
 
   fontGraphics = createGraphics(width, height);
