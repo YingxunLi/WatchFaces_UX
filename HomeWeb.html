@@ -5,45 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchfaces</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
 
-        .header-container {
-            display: flex;
-            justify-content: space-between; /* 确保三列分别对齐左、中、右 */
-            align-items: flex-start; /* 在顶部对齐 */
-        }
-        
-        .column {
-        flex: 1;
-        text-align: left; /* 每一列中的文字都左对齐 */
-        }
+.header-container {
+    display: flex;
+    justify-content: space-between; /* 确保三列分别对齐左、中、右 */
+    align-items: flex-start; /* 在顶部对齐 */
+}
 
-        .left {
-        text-align: left; /* 确保第一列左对齐 */
-        }
+.column {
+    flex: 1;
+    text-align: left; /* 每一列中的文字都左对齐 */
+}
 
-        .center {
-        text-align: left; /* 第二列仍然是左对齐 */
-        }
+.left {
+    text-align: left; /* 确保第一列左对齐 */
+}
 
-        .right {
-        text-align: left; /* 第三列同样是左对齐 */
-        }
+.center {
+    text-align: left; /* 第二列仍然是左对齐 */
+}
 
-        h1 {
-            font-size: 48px;
-            font-weight: bold;
-            margin-top: 80px;
-            text-align: left;
-        }
+.right {
+    text-align: left; /* 第三列内的文字左对齐 */
+    margin-left: auto; /* 使第三列整体靠右 */
+}
 
-        .bold {
-            font-weight: bold;
-        }
-        
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 80px;
+    text-align: left;
+}
+
+.bold {
+    font-weight: bold;
+}
 
 
     </style>
