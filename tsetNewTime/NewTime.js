@@ -1,193 +1,237 @@
-let Engine = Matter.Engine;
-let World = Matter.World;
-let Bodies = Matter.Bodies;
-let Body = Matter.Body;
-let engine;
-let world;
+const { Engine, Runner, Bodies, Composite, Constraint, Mouse, MouseConstraint, Events } = Matter;
 
-let bubbles = []; // 存储所有气泡的数组
+const canvasWidth = 960;
+const canvasHeight = 960;
 
-let images = []; // 用于存储预加载的数字图
-let colonImage; // 存储冒号图像
+// Globale Variablen
+let engine, world, pendulum, constraint, mouseConstraint;
+const baseBallRadius = 100;
+let leftBorder, rightBorder;
+const borderThickness = 100;
+let timeMultiplier = 1;
+let simulatedTime = Date.now();
+let pendulumGrabbed = false;
+let isTouching = false;
 
-let lastMouseX, lastMouseY;
-let originalRadii = []; // 存储每个气泡的初始半径
-let enlargeBubbles = []; // 存储被放大气泡的索引和缩放信息
-let enlargedRadii = []; // 存储被放大气泡的绘制半径
-let enlargeStartTime = null; // 记录放大开始的时间
+let borderColorLeft = '#404040';
+let borderColorRight = '#404040';
 
-let scaleFactor = 1; // 初始缩放比例
-
-Matter.use('matter-wrap');
-
-function preload() {
-  // 预加载 0 到 9 的数字图片
-  for (let i = 0; i < 10; i++) {
-    images[i] = loadImage(`images3.1/${i}.svg`);
-  }
-  colonImage = loadImage('images3.1/punkt.svg');
-}
+let showLeftRectangles = false;
+let showRightRectangles = false;
+let leftTimer = 0;
+let rightTimer = 0;
+const rectangleVisibleTime = 1500;
 
 function setup() {
-  createCanvas(960, 960); // 创建600x600的画布
+    const canvas = createCanvas(canvasWidth, canvasHeight);
 
-  engine = Engine.create(); // 创建物理引擎
-  world = engine.world;
+    engine = Engine.create();
+    world = engine.world;
 
-
-
-
-
-
-
-  // reset gravity to zero for start, gravity will be controlled by motion
-  engine.gravity.y = 0;
-
-
-
-
-
-
-  lastMouseX = mouseX; // 初始化鼠标位置变量
-  lastMouseY = mouseY;
-
-  // 创建800个气泡，初始物理半径为10，随机分布在画布中间部分
-  for (let i = 0; i < 800; i++) {
-    let bubble = Bodies.circle(random(width / 4, 3 * width / 4), random(height / 4, 3 * height / 4), 8, {
-      restitution: 0.8, // 反弹系数，影响弹性
-      friction: 0.1,    // 摩擦系数，影响滑动
-
-      plugin: {
-        wrap: {
-          min: {
-            x: 0,
-            y: 0
-          },
-          max: {
-            x: width,
-            y: height
-          }
-        }
-      }
-
-
+    let pendulumX = canvasWidth / 2;
+    let pendulumY = canvasHeight / 2 + 400;
+    pendulum = Bodies.circle(pendulumX, pendulumY, baseBallRadius, {
+        restitution: 1,
+        density: 3.0,
+        frictionAir: 0.00,
+        render: { fillStyle: 'transparent' },
     });
 
-    World.add(world, bubble); // 将气泡添加到物理世界中
-    bubbles.push(bubble);
-    originalRadii.push(bubble.circleRadius); // 存储每个气泡的初始半径
-    enlargedRadii.push(50); // 初始化默认绘制半径为100
-  }
+    let anchor = { x: canvasWidth / 2, y: 0 }; // Anker ganz oben am Rand des Canvas
 
-  // 设置画布边界，防止气泡移出画布
-  let ground = Bodies.rectangle(width / 2, height + 100, width, 200, { isStatic: true });
-  let leftWall = Bodies.rectangle(-100, height / 2, 200, height, { isStatic: true });
-  let rightWall = Bodies.rectangle(width + 100, height / 2, 200, height, { isStatic: true });
-  let ceiling = Bodies.rectangle(width / 2, -100, width, 200, { isStatic: true });
+    constraint = Constraint.create({
+        pointA: anchor,
+        bodyB: pendulum,
+        length: canvasHeight / 1.5,
+        stiffness: 1,
+        render: { strokeStyle: 'white', lineWidth: 3 },
+    });
 
-  World.add(world, [ground, leftWall, rightWall, ceiling]); // 将边界添加到物理世界中
+    Composite.add(world, [pendulum, constraint]);
+
+    leftBorder = Bodies.rectangle(borderThickness / 2, canvasHeight / 2, borderThickness, canvasHeight, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+    });
+
+    rightBorder = Bodies.rectangle(canvasWidth - borderThickness / 2, canvasHeight / 2, borderThickness, canvasHeight, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+    });
+
+    Composite.add(world, [leftBorder, rightBorder]);
+
+    let mouse = Mouse.create(canvas.elt);
+    mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: { stiffness: 0.2, render: { visible: false } },
+    });
+    Composite.add(world, mouseConstraint);
+
+    Engine.run(engine);
+
+    // 统一的拖动处理函数
+    function onDragStart(event) {
+        if (event.body === pendulum) {
+            pendulumGrabbed = true;
+        }
+    }
+
+    function onDragMove(event) {
+        if (pendulumGrabbed) {
+            let pendulumX = pendulum.position.x;
+            let centerX = canvasWidth / 2;
+            let movementThreshold = 10;
+            if (pendulumX < centerX - movementThreshold) {
+                borderColorLeft = '#FFFFFF';
+            } else {
+                borderColorLeft = '#404040';
+            }
+            if (pendulumX > centerX + movementThreshold) {
+                borderColorRight = '#FFFFFF';
+            } else {
+                borderColorRight = '#404040';
+            }
+        }
+    }
+
+    function onDragEnd(event) {
+        if (event.body === pendulum) {
+            pendulumGrabbed = false;
+            borderColorLeft = '#404040';
+            borderColorRight = '#404040';
+        }
+    }
+
+    // Mouse 和 Touch 事件合并
+    Events.on(mouseConstraint, 'startdrag', onDragStart);
+    Events.on(mouseConstraint, 'mousemove', onDragMove);
+    Events.on(mouseConstraint, 'enddrag', onDragEnd);
+
+    // Touchsteuerung
+    canvas.elt.addEventListener('touchstart', (event) => {
+        let touch = event.touches[0];
+        let touchX = touch.clientX;
+        let touchY = touch.clientY;
+        let d = dist(touchX, touchY, pendulum.position.x, pendulum.position.y);
+        if (d < baseBallRadius) {
+            isTouching = true;
+            pendulumGrabbed = true;
+        }
+    });
+
+    canvas.elt.addEventListener('touchmove', (event) => {
+        if (isTouching) {
+            let touch = event.touches[0];
+            Matter.Body.setPosition(pendulum, { x: touch.clientX, y: touch.clientY });
+            event.preventDefault();
+        }
+    });
+
+    canvas.elt.addEventListener('touchend', () => {
+        isTouching = false;
+        pendulumGrabbed = false;
+    });
+
+    // Kollisionserkennung für das Pendel
+    Events.on(engine, "collisionStart", function(event) {
+        event.pairs.forEach(function(pair) {
+            if ((pair.bodyA === pendulum && pair.bodyB === leftBorder) || (pair.bodyB === pendulum && pair.bodyA === leftBorder)) {
+                showLeftRectangles = true;
+                leftTimer = millis();
+            }
+            if ((pair.bodyA === pendulum && pair.bodyB === rightBorder) || (pair.bodyB === pendulum && pair.bodyA === rightBorder)) {
+                showRightRectangles = true;
+                rightTimer = millis();
+            }
+        });
+    });
 }
 
 function draw() {
+    background(15);
 
-  
-  background('black'); // 清空背景，设置为黑色
+    simulatedTime += deltaTime * timeMultiplier;
+    let simulatedDate = new Date(simulatedTime);
+    let hours = simulatedDate.getHours() % 12;
+    let minutes = simulatedDate.getMinutes();
+    let seconds = simulatedDate.getSeconds();
 
+    // Timer für das Verschwinden der Rechtecke nach 1 Sekunde
+    const visibilityDuration = 1000;
+    if (showLeftRectangles && millis() - leftTimer > visibilityDuration) {
+        showLeftRectangles = false;
+    }
+    if (showRightRectangles && millis() - rightTimer > visibilityDuration) {
+        showRightRectangles = false;
+    }
 
+    // Borders zeichnen
+    noFill();
+    stroke(borderColorLeft);
+    strokeWeight(3);
+    rect(leftBorder.position.x - borderThickness / 2, leftBorder.position.y - canvasHeight / 2, borderThickness, canvasHeight);
+    stroke(borderColorRight);
+    rect(rightBorder.position.x - borderThickness / 2, rightBorder.position.y - canvasHeight / 2, borderThickness, canvasHeight);
 
+    // Stunden- & Minutenanzeige
+    if (showLeftRectangles || showRightRectangles) {
+        let leftRectHeight = canvasHeight / 12;
+        let smallRectSpacing = 5;
+        let smallRectHeight = (leftRectHeight - smallRectSpacing * 5) / 6;
+        let filledSmallRectangles = Math.floor(minutes / 10);
+        let minuteProgress = (minutes % 10) / 10;
 
-  // apply rotation of device to gravity
-  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-  
+        for (let i = 0; i < 12; i++) {
+            let yPosition = leftBorder.position.y + canvasHeight / 2 - (i + 1) * leftRectHeight;
+            let isFilled = i < hours;
 
+            fill(isFilled ? '#FAE552' : '#404040');
+            rect(leftBorder.position.x - borderThickness / 2, yPosition, borderThickness, leftRectHeight - 5);
+            rect(rightBorder.position.x - borderThickness / 2, yPosition, borderThickness, leftRectHeight - 5);
 
-  
+            if (i === hours) {
+                for (let j = 0; j < 6; j++) {
+                    let smallRectY = yPosition + (5 - j) * (smallRectHeight + smallRectSpacing);
+                    if (j < filledSmallRectangles) {
+                        fill('#FAE552');
+                    } else if (j === filledSmallRectangles) {
+                        fill('#FAE552');
+                        rect(leftBorder.position.x - borderThickness / 2, smallRectY, borderThickness * minuteProgress, smallRectHeight);
+                        rect(rightBorder.position.x + borderThickness / 2 - borderThickness * minuteProgress, smallRectY, borderThickness * minuteProgress, smallRectHeight);
+                        continue;
+                    } else {
+                        fill('#404040');
+                    }
+                    rect(leftBorder.position.x - borderThickness / 2, smallRectY, borderThickness, smallRectHeight);
+                    rect(rightBorder.position.x - borderThickness / 2, smallRectY, borderThickness, smallRectHeight);
+                }
+            }
+        }
+    }
 
-  // 应用缩放比例
-  translate(width / 2, height / 2); // 将画布中心移动到屏幕中心
-  scale(scaleFactor); // 缩放画布
-  translate(-width / 2, -height / 2); // 再移动回原点
-
-  Engine.update(engine); // 更新物理引擎状态
-
-  // 计算鼠标移动的差异以模拟摇动效果
-  let dx = mouseX - lastMouseX;
-  let dy = mouseY - lastMouseY;
-
-  // 遍历每个气泡，施加力并绘制
-  bubbles.forEach((bubble, index) => {
-    Body.applyForce(bubble, bubble.position, { x: dx * 0.0001, y: dy * 0.0001 }); // 施加微小力以模拟移动
-
-    fill(0, 255, 255); // 设置气泡填充颜色和透明度
-    noStroke(); // 无边框
-    circle(bubble.position.x, bubble.position.y, enlargedRadii[index]); // 绘制半径可以变化的圆
-  });
-
-  // 检查放大时间是否超过5秒并恢复
-  if (enlargeStartTime && millis() - enlargeStartTime > 5000) {
-    enlargeBubbles.forEach(index => {
-      enlargedRadii[index] = 50; // 恢复默认的绘制半径
-    });
-    enlargeBubbles = []; // 清空放大的气泡
-    enlargeStartTime = null; // 重置放大计时
-  }
-
-  // 保存当前鼠标位置，用于下次比较
-  lastMouseX = mouseX;
-  lastMouseY = mouseY;
-
-  // 绘制遮罩图像在气泡之上
-  let h = nf(hour() % 24, 2); // 小时（24小时制）
-  let m = nf(minute(), 2);    // 分钟（两位数）
-  let timeStr = `${h}:${m}`; // 拼接时间字符串，包含冒号
-
-  // 定义图像尺寸
-  let imgWidth = 210;  // 单个数字的宽度
-  let imgHeight = 960; // 高度与画布一致
-  let colonWidth = 120; // 冒号的宽度
-
-  // 计算总宽度（4个数字 + 1个冒号）
-  let totalWidth = 4 * imgWidth + colonWidth;
-
-  // 计算起始偏移量，使时间居中
-  let xOffset = width / 2 - totalWidth / 2;
-
-  // 遍历时间字符串，逐一绘制
-  for (let i = 0; i < timeStr.length; i++) {
-    let char = timeStr[i];
-
-    // 判断是否是冒号
-    if (char === ":") {
-      // 绘制冒号图片
-      image(loadImage("images/punkt.svg"), 480, 480, 120, 960);
-      xOffset += colonWidth; // 偏移量增加冒号的宽度
+    // Pendel zeichnen (ohne Puls-Effekt)
+    if (pendulumGrabbed) {
+        fill('#FFFFFF');
     } else {
-      // 绘制数字图片
-      let imgIndex = int(char);
-      image(images[imgIndex], xOffset, height / 2 - imgHeight / 2, imgWidth, imgHeight);
-      xOffset += imgWidth; // 偏移量增加数字的宽度
+        noFill();
     }
-  }
+    stroke('#FFFFFF');
+    strokeWeight(3);
+    ellipse(pendulum.position.x, pendulum.position.y, baseBallRadius * 2);
 
-  image(colonImage, 420, 0, 120, 960); // 绘制遮罩图像在气泡之上
+    // Constraint zeichnen
+    stroke('white');
+    strokeWeight(3);
+    line(constraint.pointA.x, constraint.pointA.y, pendulum.position.x, pendulum.position.y);
 }
 
-function mousePressed() {
-  if (!enlargeStartTime) { // 仅当没有正在放大时执行
-    for (let i = 0; i < bubbles.length; i++) { // 假定选择50%的气泡进行放大
-      let index = Math.floor(random(bubbles.length)); // 随机选择气泡的索引
-      enlargeBubbles.push(index); // 存储被放大的气泡的索引
-      enlargedRadii[index] = random(150, 400); // 变化显示半径大小
-    }
-    enlargeStartTime = millis(); // 记录开始放大的时间
-  }
-}
-
+// Tastatur-Input für Zeitsimulation
 function keyPressed() {
-  if (key === '+') {
-    scaleFactor = constrain(scaleFactor + 0.1, 0.5, 2); // 最大放大2倍，最小缩小到0.5倍
-  } else if (key === '-') {
-    scaleFactor = constrain(scaleFactor - 0.1, 0.5, 2);
-  }
+    if (key === 's' || key === 'S') {
+        timeMultiplier = 400;
+    } else if (key === 'e' || key === 'E') {
+        timeMultiplier = 1;
+        simulatedTime = Date.now();
+    }
 }
