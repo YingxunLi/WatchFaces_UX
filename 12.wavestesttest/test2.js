@@ -64,9 +64,13 @@ function draw() {
     y: constrain(ballBody.position.y, ball.radius, height - ball.radius),
 });
 
-  // 仅在手机端使用设备重力感应
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 1;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 1;
+window.addEventListener("deviceorientation", function(event) {
+  let beta = event.beta; // X轴倾斜（前后）
+  let gamma = event.gamma; // Y轴倾斜（左右）
+  
+  engine.gravity.x = (gamma / 90) * 0.2; // 让重力在 -0.2 ~ 0.2 之间
+  engine.gravity.y = (beta / 90) * 0.2;
+});
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
