@@ -120,7 +120,7 @@ Benno Stäbler
 
   <div style="text-align: center; margin: 10px;">
     <a href="https://yingxunli.github.io/WatchFaces_UX/14.Segments_Clock/index.html">
-      <img src="images/14.png" alt="Segments Clock" style="width: 200px; height: 200px;">
+      <img src="images/14.gif" alt="Segments Clock" style="width: 200px; height: 200px;">
     </a>
     <p>Segments Clock</p>
   </div>
