@@ -56,8 +56,8 @@ function setup() {
 
 function draw() {
   background(0);
-  Engine.update(engine);
-
+  // Engine.update(engine);
+  Engine.update(engine, 1000 / 30); // 确保 iOS 不降低刷新率
   // 限制球体在画布范围内
   Matter.Body.setPosition(ballBody, {
     x: constrain(ballBody.position.x, ball.radius, width - ball.radius),
