@@ -3,41 +3,24 @@ let Engine = Matter.Engine,
     Bodies = Matter.Bodies;
 
 let engine, world;
-let points = [];
-let gravity;
+let ballBody;
 let ball;
-let fontSize = 300;
 let fontGraphics;
 let waveOffset = 0;
 let waveSeedX, waveSeedY;
 let followBall = false;
-let changeLineColor = false;
-let ballBody;
+let gravity;
 
 function setup() {
   createCanvas(600, 600);
   engine = Engine.create();
   world = engine.world;
-  engine.gravity.y = 0;
+  engine.gravity.y = 0;  // 设置重力
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
 
-  let spacing = 15;
-  for (let x = spacing; x < width; x += spacing) {
-    for (let y = spacing; y < height; y += spacing) {
-      points.push({
-        base: createVector(x, y),
-        current: createVector(x, y),
-        angle: random(TWO_PI),
-        length: 10,
-        isTimePart: false,
-        blueIntensity: 0,
-        strokeWeight: 2,
-      });
-    }
-  }
-
+  // 创建小球
   ball = {
     pos: createVector(width / 2, height / 2),
     radius: 50,
@@ -50,93 +33,52 @@ function setup() {
   });
 
   World.add(world, ballBody);
-
   fontGraphics = createGraphics(width, height);
   fontGraphics.pixelDensity(1);
+
+  // 添加设备方向事件监听器
+  window.addEventListener("deviceorientation", function(event) {
+    let beta = event.beta;   // 设备绕X轴旋转（前后）
+    let gamma = event.gamma; // 设备绕Y轴旋转（左右）
+    
+    // 根据设备旋转调整重力方向
+    engine.gravity.x = (gamma / 90); // 将gamma映射到-1到1之间
+    engine.gravity.y = (beta / 90);  // 将beta映射到-1到1之间
+  });
 }
 
 function draw() {
   background(0);
-  Engine.update(engine, 1000 / 30); // Ensure iOS doesn't reduce refresh rate
+  Engine.update(engine, 1000 / 30); // 确保更新频率
 
-  // Apply rotation of device to gravity
-  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;  // Use rotationY
-  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;  // Use rotationX
+  // 根据设备的旋转设置重力方向
+  let rotationForceX = (rotationY / 2);  // X轴上的旋转影响
+  let rotationForceY = (rotationX / 2);  // Y轴上的旋转影响
   
-  // Move the ball to follow the mouse position
-  Matter.Body.setPosition(ballBody, { x: mouseX, y: mouseY });
+  // 直接影响重力
+  engine.gravity.x = rotationForceX * 0.5;
+  engine.gravity.y = rotationForceY * 0.5;
 
-  // Limit the ball's position within canvas
+  // 根据设备旋转来影响小球的位置
+  let gravityForce = createVector(engine.gravity.x, engine.gravity.y);
+  Matter.Body.applyForce(ballBody, ballBody.position, {
+    x: gravityForce.x * 0.1,
+    y: gravityForce.y * 0.1
+  });
+
+  // 更新小球的坐标
+  ball.pos.set(ballBody.position.x, ballBody.position.y);
+
+  // 限制小球在画布内
   Matter.Body.setPosition(ballBody, {
     x: constrain(ballBody.position.x, ball.radius, width - ball.radius),
     y: constrain(ballBody.position.y, ball.radius, height - ball.radius),
   });
 
-  gravity = createVector(ballBody.position.x, ballBody.position.y);
-
-  let h = hour();
-  let m = minute();
-
-  fontGraphics.background(0);
-  fontGraphics.fill(255);
-  fontGraphics.textSize(fontSize);
-  fontGraphics.textAlign(CENTER, CENTER);
-  fontGraphics.text(nf(h, 2), width / 2, height / 4);
-  fontGraphics.text(nf(m, 2), width / 2, (3 * height) / 4);
-  fontGraphics.loadPixels();
-
-  points.forEach((point) => {
-    let dir = gravity.copy().sub(point.base);
-
-    let px = floor(point.base.x);
-    let py = floor(point.base.y);
-    if (px >= 0 && px < width && py >= 0 && py < height) {
-      let index = (py * width + px) * 4;
-      point.isTimePart = fontGraphics.pixels[index] > 128;
-    } else {
-      point.isTimePart = false;
-    }
-
-    // Calculate the distance from the ball to the point
-    let d = dist(ballBody.position.x, ballBody.position.y, point.current.x, point.current.y);
-    if (d < ball.radius + point.length) {
-      let moveDir = createVector(point.current.x - ballBody.position.x, point.current.y - ballBody.position.y);
-      moveDir.setMag(2); // Offset force
-      point.current.add(moveDir);
-    } else {
-      point.current.x = lerp(point.current.x, point.base.x, 0.1);
-      point.current.y = lerp(point.current.y, point.base.y, 0.1);
-    }
-
-    // Update angles based on time part or noise
-    if (point.isTimePart) {
-      if (followBall) {
-        point.angle = atan2(dir.y, dir.x);
-      } else {
-        let noiseX = noise(waveSeedX + point.base.x * 0.01, waveOffset * 0.01);
-        let noiseY = noise(waveSeedY + point.base.y * 0.01, waveOffset * 0.01);
-        point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
-      }
-      stroke(169);
-    } else {
-      let noiseX = noise(waveSeedX + point.base.x * 0.01, waveOffset * 0.01);
-      let noiseY = noise(waveSeedY + point.base.y * 0.01, waveOffset * 0.01);
-      point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
-      stroke(abs(cos(point.angle)) > 0.99 || abs(sin(point.angle)) > 0.99 ? 255 : 169);
-    }
-
-    strokeWeight(point.strokeWeight);
-    let endX = point.current.x + cos(point.angle) * point.length;
-    let endY = point.current.y + sin(point.angle) * point.length;
-    line(point.current.x, point.current.y, endX, endY);
-  });
-
-  // Draw the blue ball
-  fill(100, 150, 255, 50); // Set ball color to blue
+  fill(100, 150, 255, 50);  // 蓝色小球
   noStroke();
   ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
-  ball.pos.set(ballBody.position.x, ballBody.position.y);
   waveOffset += 1;
 }
 
