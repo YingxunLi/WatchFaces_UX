@@ -79,29 +79,42 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
-        .container {
+        /* .container {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             gap: 15px;
+        } */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 自动适应列数 */
+            gap: 15px;
         }
+
         .item {
             text-align: center;
         }
+
         .item img {
+            width: 100%; /* 图片宽度自适应 */
+            max-width: 400px; /* 限制最大宽度，防止图片过大 */
+            height: auto; /* 让图片等比例缩放 */
+            border-radius: 10px;
+        }
+        /* .item img {
             width: 200px;
             height: 200px;
             border-radius: 10px;
         }
     
         /* 第三行只有 5 个，占满 5 格 */
-        .item:nth-child(13) {
+        /* .item:nth-child(13) {
             grid-column: span 5;
-        }
+        } */
     
         /* 最后一行 5 个，强制排成一行 */
-        .item:nth-last-child(-n+5) {
+        /* .item:nth-last-child(-n+5) {
             grid-column: span 1;
-        }
+        } */ */
     </style>
 </head>
 <body>
