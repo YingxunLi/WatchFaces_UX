@@ -40,7 +40,7 @@ function setup() {
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 15,
+    radius: 30,
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
@@ -65,8 +65,8 @@ function draw() {
 });
 
   // 仅在手机端使用设备重力感应
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 1;
+    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 1;
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
