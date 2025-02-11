@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0F0F0F; /* Dunkler Hintergrund */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 📱 Handy-Ansicht */
+@media screen and (max-width: 600px) {
+    canvas {
+        width: 130vw !important;
+        height: 55vh !important;
+    }
+
+    /* Uhrzeit-Anzeige kleiner machen */
+    text {
+        font-size: 20px !important;
+    }
+
+    /* Borders schmaler machen */
+    .border {
+        width: 80px !important;
+    }
+
+    /* Pendel kleiner machen */
+    .pendulum {
+        width: 50x !important;
+        height: 50px !important;
+    }
+}
