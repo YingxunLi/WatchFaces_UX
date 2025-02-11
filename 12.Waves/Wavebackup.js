@@ -10,13 +10,13 @@ let changeLineColor = false;
 let ballVelocity;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(960, 960);  // 更改画布大小
   gravity = createVector(width / 2, height / 2);
 
   waveSeedX = random(1000);
   waveSeedY = random(1000);
 
-  let spacing = 15;
+  let spacing = 15 * 1.6;  // 调整点之间的间距
 
   for (let x = spacing; x < width; x += spacing) {
     for (let y = spacing; y < height; y += spacing) {
@@ -24,17 +24,17 @@ function setup() {
         base: createVector(x, y), // Ursprüngliche Position
         current: createVector(x, y), // Aktuelle Position
         angle: random(TWO_PI),
-        length: 10,
+        length: 10 * 1.6,  // 调整长度
         isTimePart: false,
         blueIntensity: 0, // Farbintensität für neue Farbe
-        strokeWeight: 2, // Standardlinienbreite
+        strokeWeight: 2 * 1.6, // 调整线条宽度
       });
     }
   }
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 15,
+    radius: 15 * 1.6,  // 调整球的半径
   };
 
   ballVelocity = createVector(0, 0);
@@ -45,7 +45,7 @@ function setup() {
 
 function draw() {
   background(0);
-  strokeWeight(2);
+  strokeWeight(2 * 1.6);
 
   // Die "Gravitation" zeigt auf die Kugel
   gravity.set(ball.pos.x, ball.pos.y);
@@ -176,7 +176,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
-  let speed = 10; // Geschwindigkeit der Kugel
+  let speed = 10 * 1.6; // Geschwindigkeit der Kugel
   if (keyCode === UP_ARROW) {
     ballVelocity.set(0, -speed); // Nach oben
   } else if (keyCode === DOWN_ARROW) {
