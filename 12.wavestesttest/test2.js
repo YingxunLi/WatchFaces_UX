@@ -40,7 +40,7 @@ function setup() {
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 100,
+    radius: 200,
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
