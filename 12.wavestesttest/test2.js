@@ -59,21 +59,17 @@ function setup() {
 
 function draw() {
   background(0);
-  // Engine.update(engine);
-  Engine.update(engine, 1000 / 30); // 确保 iOS 不降低刷新率
+  Engine.update(engine);
   // 限制球体在画布范围内
   Matter.Body.setPosition(ballBody, {
     x: constrain(ballBody.position.x, ball.radius, width - ball.radius),
     y: constrain(ballBody.position.y, ball.radius, height - ball.radius),
 });
 
-window.addEventListener("deviceorientation", function(event) {
-  let beta = event.beta; // X轴倾斜（前后）
-  let gamma = event.gamma; // Y轴倾斜（左右）
+  // apply rotation of device to gravity
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
   
-  engine.gravity.x = (gamma / 90) * 0.2; // 让重力在 -0.2 ~ 0.2 之间
-  engine.gravity.y = (beta / 90) * 0.2;
-});
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
