@@ -11,7 +11,6 @@ let fontGraphics;
 let waveOffset = 0;
 let waveSeedX, waveSeedY;
 let followBall = false;
-let changeLineColor = false;
 let ballBody;
 
 function setup() {
@@ -69,10 +68,11 @@ function draw() {
   background(0);
   Engine.update(engine, 1000 / 30); // Ensure iOS doesn't reduce refresh rate
 
-    // apply rotation of device to gravity
-    engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
-    engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
-    
+  // Apply gravity based on device orientation
+  let gravityX = (rotationY / 2 - engine.gravity.x) * 0.5;
+  let gravityY = (rotationX / 2 - engine.gravity.y) * 0.5;
+  engine.gravity.x = gravityX;
+  engine.gravity.y = gravityY;
   
   // Move the ball to follow the mouse position
   Matter.Body.setPosition(ballBody, { x: mouseX, y: mouseY });
