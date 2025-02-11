@@ -40,7 +40,7 @@ function setup() {
 
   ball = {
     pos: createVector(width / 2, height / 2),
-    radius: 80,
+    radius: 50,
   };
 
   ballBody = Bodies.circle(ball.pos.x, ball.pos.y, ball.radius, {
@@ -49,33 +49,27 @@ function setup() {
     frictionAir: 0.001,
   });
 
+
+
   World.add(world, ballBody);
 
   fontGraphics = createGraphics(width, height);
   fontGraphics.pixelDensity(1);
-
-  // Add event listener for device orientation (for mobile)
-  window.addEventListener("deviceorientation", function(event) {
-    let beta = event.beta; // X-axis tilt (front/back)
-    let gamma = event.gamma; // Y-axis tilt (left/right)
-    
-    engine.gravity.x = (gamma / 90) * 0.2; // Make gravity between -0.2 and 0.2
-    engine.gravity.y = (beta / 90) * 0.2;
-  });
 }
 
 function draw() {
   background(0);
-  Engine.update(engine, 1000 / 30); // Ensure iOS doesn't reduce refresh rate
-
-  // Move the ball to follow the mouse position
-  Matter.Body.setPosition(ballBody, { x: mouseX, y: mouseY });
-
-  // Limit the ball's position within canvas
+  Engine.update(engine);
+  // 限制球体在画布范围内
   Matter.Body.setPosition(ballBody, {
     x: constrain(ballBody.position.x, ball.radius, width - ball.radius),
     y: constrain(ballBody.position.y, ball.radius, height - ball.radius),
-  });
+});
+
+  // apply rotation of device to gravity
+  engine.gravity.x = (rotationY / 2 - engine.gravity.x) * 0.5;
+  engine.gravity.y = (rotationX / 2 - engine.gravity.y) * 0.5;
+  
 
   gravity = createVector(ballBody.position.x, ballBody.position.y);
 
@@ -102,33 +96,37 @@ function draw() {
       point.isTimePart = false;
     }
 
-    // Calculate the distance from the ball to the point
+    // 计算球与线条的距离
     let d = dist(ballBody.position.x, ballBody.position.y, point.current.x, point.current.y);
     if (d < ball.radius + point.length) {
+      // 让靠近球的线条受到影响，向远离球的方向偏移
       let moveDir = createVector(point.current.x - ballBody.position.x, point.current.y - ballBody.position.y);
-      moveDir.setMag(2); // Offset force
+      moveDir.setMag(2); // 偏移力度
       point.current.add(moveDir);
     } else {
+      // 逐渐恢复到原始位置
       point.current.x = lerp(point.current.x, point.base.x, 0.1);
       point.current.y = lerp(point.current.y, point.base.y, 0.1);
     }
 
-    // Update angles based on time part or noise
-    if (point.isTimePart) {
-      if (followBall) {
-        point.angle = atan2(dir.y, dir.x);
+    
+
+      if (point.isTimePart) {
+        if (followBall) {
+          point.angle = atan2(dir.y, dir.x);
+        } else {
+          let noiseX = noise(waveSeedX + point.base.x * 0.01, waveOffset * 0.01);
+          let noiseY = noise(waveSeedY + point.base.y * 0.01, waveOffset * 0.01);
+          point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
+        }
+        stroke(169);
       } else {
         let noiseX = noise(waveSeedX + point.base.x * 0.01, waveOffset * 0.01);
         let noiseY = noise(waveSeedY + point.base.y * 0.01, waveOffset * 0.01);
         point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
+        stroke(abs(cos(point.angle)) > 0.99 || abs(sin(point.angle)) > 0.99 ? 255 : 169);
       }
-      stroke(169);
-    } else {
-      let noiseX = noise(waveSeedX + point.base.x * 0.01, waveOffset * 0.01);
-      let noiseY = noise(waveSeedY + point.base.y * 0.01, waveOffset * 0.01);
-      point.angle = map(noiseX + noiseY, 0, 2, -PI, PI);
-      stroke(abs(cos(point.angle)) > 0.99 || abs(sin(point.angle)) > 0.99 ? 255 : 169);
-    }
+    
 
     strokeWeight(point.strokeWeight);
     let endX = point.current.x + cos(point.angle) * point.length;
@@ -136,8 +134,8 @@ function draw() {
     line(point.current.x, point.current.y, endX, endY);
   });
 
-  // Draw the blue ball
-  fill(100, 150, 255, 50); // Set ball color to blue
+  // 绘制小球
+  fill(100, 150, 255); // 设定小球颜色为蓝色
   noStroke();
   ellipse(ballBody.position.x, ballBody.position.y, ball.radius * 2);
 
