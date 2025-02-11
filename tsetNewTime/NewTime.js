@@ -3,7 +3,6 @@ const { Engine, Runner, Bodies, Composite, Constraint, Mouse, MouseConstraint, E
 const canvasWidth = 960;
 const canvasHeight = 960;
 
-// Globale Variablen
 let engine, world, pendulum, constraint, mouseConstraint;
 const baseBallRadius = 100;
 let leftBorder, rightBorder;
@@ -37,7 +36,7 @@ function setup() {
         render: { fillStyle: 'transparent' },
     });
 
-    let anchor = { x: canvasWidth / 2, y: 0 }; // Anker ganz oben am Rand des Canvas
+    let anchor = { x: canvasWidth / 2, y: 0 }; // 锚点位于画布顶部中央
 
     constraint = Constraint.create({
         pointA: anchor,
@@ -70,14 +69,14 @@ function setup() {
 
     Engine.run(engine);
 
-    // 统一的拖动处理函数
-    function onDragStart(event) {
+    // 鼠标拖动事件
+    Events.on(mouseConstraint, 'startdrag', function (event) {
         if (event.body === pendulum) {
             pendulumGrabbed = true;
         }
-    }
+    });
 
-    function onDragMove(event) {
+    Events.on(mouseConstraint, 'mousemove', function (event) {
         if (pendulumGrabbed) {
             let pendulumX = pendulum.position.x;
             let centerX = canvasWidth / 2;
@@ -93,22 +92,17 @@ function setup() {
                 borderColorRight = '#404040';
             }
         }
-    }
+    });
 
-    function onDragEnd(event) {
+    Events.on(mouseConstraint, 'enddrag', function (event) {
         if (event.body === pendulum) {
             pendulumGrabbed = false;
             borderColorLeft = '#404040';
             borderColorRight = '#404040';
         }
-    }
+    });
 
-    // Mouse 和 Touch 事件合并
-    Events.on(mouseConstraint, 'startdrag', onDragStart);
-    Events.on(mouseConstraint, 'mousemove', onDragMove);
-    Events.on(mouseConstraint, 'enddrag', onDragEnd);
-
-    // Touchsteuerung
+    // 触摸事件
     canvas.elt.addEventListener('touchstart', (event) => {
         let touch = event.touches[0];
         let touchX = touch.clientX;
@@ -133,7 +127,7 @@ function setup() {
         pendulumGrabbed = false;
     });
 
-    // Kollisionserkennung für das Pendel
+    // 碰撞检测
     Events.on(engine, "collisionStart", function(event) {
         event.pairs.forEach(function(pair) {
             if ((pair.bodyA === pendulum && pair.bodyB === leftBorder) || (pair.bodyB === pendulum && pair.bodyA === leftBorder)) {
@@ -157,7 +151,7 @@ function draw() {
     let minutes = simulatedDate.getMinutes();
     let seconds = simulatedDate.getSeconds();
 
-    // Timer für das Verschwinden der Rechtecke nach 1 Sekunde
+    // 计时器
     const visibilityDuration = 1000;
     if (showLeftRectangles && millis() - leftTimer > visibilityDuration) {
         showLeftRectangles = false;
@@ -166,7 +160,7 @@ function draw() {
         showRightRectangles = false;
     }
 
-    // Borders zeichnen
+    // 绘制边框
     noFill();
     stroke(borderColorLeft);
     strokeWeight(3);
@@ -174,7 +168,7 @@ function draw() {
     stroke(borderColorRight);
     rect(rightBorder.position.x - borderThickness / 2, rightBorder.position.y - canvasHeight / 2, borderThickness, canvasHeight);
 
-    // Stunden- & Minutenanzeige
+    // 绘制时间刻度
     if (showLeftRectangles || showRightRectangles) {
         let leftRectHeight = canvasHeight / 12;
         let smallRectSpacing = 5;
@@ -210,7 +204,7 @@ function draw() {
         }
     }
 
-    // Pendel zeichnen (ohne Puls-Effekt)
+    // 绘制摆锤
     if (pendulumGrabbed) {
         fill('#FFFFFF');
     } else {
@@ -220,13 +214,13 @@ function draw() {
     strokeWeight(3);
     ellipse(pendulum.position.x, pendulum.position.y, baseBallRadius * 2);
 
-    // Constraint zeichnen
+    // 绘制约束线
     stroke('white');
     strokeWeight(3);
     line(constraint.pointA.x, constraint.pointA.y, pendulum.position.x, pendulum.position.y);
 }
 
-// Tastatur-Input für Zeitsimulation
+// 键盘事件
 function keyPressed() {
     if (key === 's' || key === 'S') {
         timeMultiplier = 400;
