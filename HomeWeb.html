@@ -9,31 +9,37 @@
             font-family: Arial, sans-serif;
             margin: 40px;
         }
+
         .header-container {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .column {
-            flex: 1;
-        }
-        .left {
-            text-align: left;
-        }
-        .center {
-            text-align: right;
-            padding-right: 30%;
-        }
-        .right {
-            text-align: right;
+            justify-content: space-between; /* 确保三列分别对齐左、中、右 */
+            align-items: flex-start; /* 在顶部对齐 */
         }
         
+        .column {
+        flex: 1;
+        text-align: left; /* 每一列中的文字都左对齐 */
+        }
+
+        .left {
+        text-align: left; /* 确保第一列左对齐 */
+        }
+
+        .center {
+        text-align: left; /* 第二列仍然是左对齐 */
+        }
+
+        .right {
+        text-align: left; /* 第三列同样是左对齐 */
+        }
+
         h1 {
             font-size: 48px;
             font-weight: bold;
             margin-top: 80px;
             text-align: left;
         }
+        
         .bold {
             font-weight: bold;
         }
