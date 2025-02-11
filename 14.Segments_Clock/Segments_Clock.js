@@ -138,7 +138,10 @@ function removeDigit(d, z) {
 
 function draw() {
   background(0);
-
+  // Update gravity based on current direction
+  engine.world.gravity.x = gravityDirection.x;
+  engine.world.gravity.y = gravityDirection.y;
+  
   if (!stopped) {
     if (reset > 0) {
       magnets.forEach(list => list.forEach(magnet => {
@@ -168,9 +171,7 @@ function draw() {
 
   mouse.draw();
 
-  // Update gravity based on current direction
-  engine.world.gravity.x = gravityDirection.x;
-  engine.world.gravity.y = gravityDirection.y;
+
 
 }
 
