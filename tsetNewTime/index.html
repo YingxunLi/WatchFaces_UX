@@ -2,50 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- <script language="javascript" type="text/javascript" src="motionsensor.js"></script> -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <script language="javascript" type="text/javascript" src="NewTime.js"></script>
-    <script>
-      window.addEventListener('keydown', function(e) {
-        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-          e.preventDefault();
-        }
-      });
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Pendulum Clock</title>
+    <!-- 引入p5.js库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <!-- 引入Matter.js物理引擎 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js"></script>
     <style>
-      body {
-        padding: 0;
-        margin: 0;
-        background-color: #333;
-      }
-  
-      button {
-        /* center button */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-  
-        /* style button */
-        font-size: 50px;
-        padding: 20px;
-        border-radius: 10px;
-        border-width: 0;
-        z-index: 1;
-      }
-  
-      canvas {
-        /* center canvas */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        canvas {
+            touch-action: none; /* 禁用默认触控行为 */
+        }
     </style>
-  </head>
+</head>
 <body>
+    <!-- 主脚本放在最后 -->
+    <script src="NewTime.js"></script>
 </body>
 </html>
