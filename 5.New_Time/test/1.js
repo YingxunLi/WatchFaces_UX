@@ -23,6 +23,9 @@ const rectangleVisibleTime = 1500;
 
 function setup() {
     const canvas = createCanvas(canvasWidth, canvasHeight);
+    canvas.style('display', 'block'); // 确保画布不会因为样式问题而偏移
+    canvas.elt.style.width = '100%';  // 确保画布在移动端正确缩放
+    canvas.elt.style.height = '100%';
 
     engine = Engine.create();
     world = engine.world;
@@ -68,7 +71,7 @@ function setup() {
     Composite.add(world, mouseConstraint);
 
     Matter.Runner.run(engine);
-    
+
     // 鼠标拖动事件
     Events.on(mouseConstraint, 'startdrag', function (event) {
         if (event.body === pendulum) {
@@ -105,19 +108,28 @@ function setup() {
     // 触摸事件
     canvas.elt.addEventListener('touchstart', (event) => {
         let touch = event.touches[0];
-        let touchX = touch.clientX;
-        let touchY = touch.clientY;
+        let rect = canvas.elt.getBoundingClientRect();
+        let touchX = touch.pageX - rect.left;
+        let touchY = touch.pageY - rect.top;
         let d = dist(touchX, touchY, pendulum.position.x, pendulum.position.y);
         if (d < baseBallRadius) {
             isTouching = true;
             pendulumGrabbed = true;
+            mouse.position.x = touchX;
+            mouse.position.y = touchY;
+            mouseConstraint.mouse.button = -1; // Simulate mouse down
         }
     });
 
     canvas.elt.addEventListener('touchmove', (event) => {
         if (isTouching) {
             let touch = event.touches[0];
-            Matter.Body.setPosition(pendulum, { x: touch.clientX, y: touch.clientY });
+            let rect = canvas.elt.getBoundingClientRect();
+            let touchX = touch.pageX - rect.left;
+            let touchY = touch.pageY - rect.top;
+            mouse.position.x = touchX;
+            mouse.position.y = touchY;
+            Matter.Body.setPosition(pendulum, { x: touchX, y: touchY });
             event.preventDefault();
         }
     });
@@ -125,11 +137,12 @@ function setup() {
     canvas.elt.addEventListener('touchend', () => {
         isTouching = false;
         pendulumGrabbed = false;
+        mouseConstraint.mouse.button = 1; // Simulate mouse up
     });
 
     // 碰撞检测
-    Events.on(engine, "collisionStart", function(event) {
-        event.pairs.forEach(function(pair) {
+    Events.on(engine, "collisionStart", function (event) {
+        event.pairs.forEach(function (pair) {
             if ((pair.bodyA === pendulum && pair.bodyB === leftBorder) || (pair.bodyB === pendulum && pair.bodyA === leftBorder)) {
                 showLeftRectangles = true;
                 leftTimer = millis();
