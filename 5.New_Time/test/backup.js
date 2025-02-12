@@ -67,8 +67,8 @@ function setup() {
     });
     Composite.add(world, mouseConstraint);
 
-    Engine.run(engine);
-
+    Matter.Runner.run(engine);
+    
     // 鼠标拖动事件
     Events.on(mouseConstraint, 'startdrag', function (event) {
         if (event.body === pendulum) {
