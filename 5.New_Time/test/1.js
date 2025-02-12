@@ -24,20 +24,20 @@ const rectangleVisibleTime = 1500;
 function setup() {
     const canvas = createCanvas(canvasWidth, canvasHeight);
 
+    // 创建 Matter.js 引擎和世界
     engine = Engine.create();
     world = engine.world;
 
-    let pendulumX = canvasWidth / 2;
-    let pendulumY = canvasHeight / 2 + 400;
-    pendulum = Bodies.circle(pendulumX, pendulumY, baseBallRadius, {
+    // 创建摆锤
+    pendulum = Bodies.circle(canvasWidth / 2, canvasHeight / 2 + 400, baseBallRadius, {
         restitution: 1,
         density: 3.0,
         frictionAir: 0.00,
         render: { fillStyle: 'transparent' },
     });
 
-    let anchor = { x: canvasWidth / 2, y: 0 }; // 锚点位于画布顶部中央
-
+    // 创建约束（摆锤的悬挂点）
+    let anchor = { x: canvasWidth / 2, y: 0 };
     constraint = Constraint.create({
         pointA: anchor,
         bodyB: pendulum,
@@ -46,20 +46,10 @@ function setup() {
         render: { strokeStyle: 'white', lineWidth: 3 },
     });
 
+    // 将摆锤和约束添加到世界中
     Composite.add(world, [pendulum, constraint]);
 
-    leftBorder = Bodies.rectangle(borderThickness / 2, canvasHeight / 2, borderThickness, canvasHeight, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-    });
-
-    rightBorder = Bodies.rectangle(canvasWidth - borderThickness / 2, canvasHeight / 2, borderThickness, canvasHeight, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-    });
-
-    Composite.add(world, [leftBorder, rightBorder]);
-
+    // 创建鼠标约束
     let mouse = Mouse.create(canvas.elt);
     mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
@@ -67,43 +57,25 @@ function setup() {
     });
     Composite.add(world, mouseConstraint);
 
+    // 运行引擎
     Engine.run(engine);
 
-    // 鼠标拖动事件
+    // 监听鼠标拖拽事件
     Events.on(mouseConstraint, 'startdrag', function (event) {
         if (event.body === pendulum) {
             pendulumGrabbed = true;
         }
     });
 
-    Events.on(mouseConstraint, 'mousemove', function (event) {
-        if (pendulumGrabbed) {
-            let pendulumX = pendulum.position.x;
-            let centerX = canvasWidth / 2;
-            let movementThreshold = 10;
-            if (pendulumX < centerX - movementThreshold) {
-                borderColorLeft = '#FFFFFF';
-            } else {
-                borderColorLeft = '#404040';
-            }
-            if (pendulumX > centerX + movementThreshold) {
-                borderColorRight = '#FFFFFF';
-            } else {
-                borderColorRight = '#404040';
-            }
-        }
-    });
-
     Events.on(mouseConstraint, 'enddrag', function (event) {
         if (event.body === pendulum) {
             pendulumGrabbed = false;
-            borderColorLeft = '#404040';
-            borderColorRight = '#404040';
         }
     });
 
-    // 触摸事件
+    // 绑定触摸事件
     canvas.elt.addEventListener('touchstart', (event) => {
+        event.preventDefault(); // 阻止默认行为
         let touch = event.touches[0];
         let touchX = touch.clientX;
         let touchY = touch.clientY;
@@ -116,29 +88,15 @@ function setup() {
 
     canvas.elt.addEventListener('touchmove', (event) => {
         if (isTouching) {
+            event.preventDefault(); // 阻止默认行为
             let touch = event.touches[0];
             Matter.Body.setPosition(pendulum, { x: touch.clientX, y: touch.clientY });
-            event.preventDefault();
         }
     });
 
     canvas.elt.addEventListener('touchend', () => {
         isTouching = false;
         pendulumGrabbed = false;
-    });
-
-    // 碰撞检测
-    Events.on(engine, "collisionStart", function(event) {
-        event.pairs.forEach(function(pair) {
-            if ((pair.bodyA === pendulum && pair.bodyB === leftBorder) || (pair.bodyB === pendulum && pair.bodyA === leftBorder)) {
-                showLeftRectangles = true;
-                leftTimer = millis();
-            }
-            if ((pair.bodyA === pendulum && pair.bodyB === rightBorder) || (pair.bodyB === pendulum && pair.bodyA === rightBorder)) {
-                showRightRectangles = true;
-                rightTimer = millis();
-            }
-        });
     });
 }
 
